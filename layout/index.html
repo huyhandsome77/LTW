@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5AE - Online WebShop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+
+      /* MENU TRÁI CỐ ĐỊNH */
+      #left-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: #2f2fae;
+        color: #fff;
+        overflow-y: auto;
+        z-index: 999;
+      }
+
+      #logo {
+        width: 100%;
+        height: 100px;
+        text-align: center;
+        padding: 10px;
+      }
+
+      #logo img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      #menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #menu ul li {
+        border-bottom: 1px solid #444;
+        padding: 12px 20px;
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
+
+      #menu ul li:hover {
+        background-color: #1d1d8f;
+      }
+
+      #menu ul li a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+      }
+
+      .submenu {
+        display: none;
+        background-color: #4040cc;
+      }
+
+      .submenu li {
+        padding-left: 40px;
+        background-color: #4040cc;
+      }
+
+      .submenu li:hover {
+        background-color: #3030a0;
+      }
+
+      /* MAIN BÊN PHẢI */
+      #main {
+        margin-left: 250px;
+        padding: 20px;
+      }
+
+      #navbar {
+        height: 80px;
+        background-color: #fff;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+      }
+
+      #main-content {
+        background-color: #fff;
+        padding: 20px;
+        min-height: 400px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #footer {
+        margin-top: 20px;
+        padding: 10px;
+        text-align: center;
+        background-color: #ddd;
+      }
+
+      @media (max-width: 768px) {
+        #left-menu {
+          position: relative;
+          width: 100%;
+          height: auto;
+        }
+        #main {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="left-menu">
+      <div id="logo">
+        <img src="../assets/img/logo1.png" alt="logo" />
+      </div>
+      <div id="menu">
+        <ul>
+          <li>
+            <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+          </li>
+          <li>
+            <a class="menu1" href="#"
+              ><i class="fa-solid fa-cart-shopping"></i> Mua hàng</a
+            >
+            <ul class="submenu">
+              <li><a href="#">- Nước uống</a></li>
+              <li><a href="#">- Thức ăn</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fa-solid fa-box-archive"></i> Lịch sử đặt hàng</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-phone"></i> Liên hệ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="main">
+      <div id="navbar">
+        <h2>5AE - Online WebShop</h2>
+      </div>
+
+      <div id="main-content">
+        <h2>Chào mừng đến với cửa hàng tiện lợi 5AE!</h2>
+        <p>Chọn một chức năng từ menu bên trái để bắt đầu.</p>
+        <p style="margin-top: 1000px">
+          Cuộn trang thử xem, menu trái vẫn cố định.
+        </p>
+      </div>
+
+      <div id="footer">&copy; 2025 5AE WebShop. All rights reserved.</div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $(".submenu").hide();
+        $(".menu1").click(function (e) {
+          e.preventDefault();
+          $(this).next(".submenu").slideToggle();
+        });
+      });
+    </script>
+  </body>
+</html>
