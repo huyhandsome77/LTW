@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -106,6 +107,19 @@
       .rotate {
         transform: rotate(180deg);
       }
+      #logout button {
+        width: 250px;
+        height: 35px;
+        font-size: 18px;
+        font-weight: 600;
+        background-color: #b3b3b3;
+        color: black;
+        border-radius: 5px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        border: none;
+      }
       #main {
         margin-left: 250px;
         padding: 5px 20px;
@@ -119,8 +133,6 @@
         padding: 5px 20px;
         display: flex;
         align-items: center;
-        position: relative;
-        z-index: 20;
       }
       #navbar #search input {
         padding: 10px 10px;
@@ -142,35 +154,16 @@
         background-color: #666;
         color: white;
       }
-
-      #main-content {
-        background-color: #fff;
-        padding: 5px 20px;
-        min-height: 400px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      }
-
-      #footer {
-        margin-top: 20px;
-        padding: 10px;
-        text-align: center;
-        background-color: #ddd;
-      }
-
       #profile {
         display: flex;
         align-items: center;
         margin-left: auto;
         gap: 10px;
-        position: relative;
-        cursor: pointer;
       }
       .myprofile {
         display: flex;
         align-items: center;
         gap: 15px;
-        padding: 0 5px;
-        border-radius: 10px;
       }
       .myprofile img {
         width: 50px;
@@ -192,80 +185,17 @@
         font-size: 0.9em;
         color: #666;
       }
-      #profile-dropdown {
-        display: none;
-        position: absolute;
-        top: 70px;
-        right: 0;
-        width: 280px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
-        border: 1px solid #ddd;
-        z-index: 30;
-        font-family: "Roboto", sans-serif;
+      #main-content {
+        background-color: #fff;
+        padding: 5px 20px;
+        min-height: 400px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
       }
-      .myprofile:hover {
-        background-color: #b3b3b3;
-      }
-      #profile-dropdown .header {
-        display: flex;
-        gap: 15px;
-        padding: 15px 20px;
-        border-bottom: 1px solid #eee;
-        align-items: center;
-      }
-      #profile-dropdown .header img {
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
-        object-fit: cover;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px;
-      }
-      #profile-dropdown .header .info {
-        flex-grow: 1;
-      }
-      #profile-dropdown .header .info p.name {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 4px;
-      }
-      #profile-dropdown .header .info p.email {
-        font-size: 0.9em;
-        color: #666;
-        margin-bottom: 8px;
-      }
-      #profile-dropdown .header .info button {
-        background-color: #5a5ad1;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      #profile-dropdown .header .info button:hover {
-        background-color: #4a49b8;
-      }
-      #profile-dropdown ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      #profile-dropdown ul li {
-        border-top: 1px solid #eee;
-      }
-      #profile-dropdown ul li a {
-        display: block;
-        padding: 12px 20px;
-        color: #333;
-        text-decoration: none;
-        font-size: 1rem;
-        transition: background-color 0.2s ease;
-      }
-      #profile-dropdown ul li a:hover {
-        background-color: #f5f5f5;
+      #footer {
+        margin-top: 20px;
+        padding: 10px;
+        text-align: center;
+        background-color: #ddd;
       }
       @media (max-width: 768px) {
         #left-menu {
@@ -275,17 +205,6 @@
         }
         #main {
           margin-left: 0;
-        }
-        #navbar {
-          padding: 5px 10px;
-        }
-        #navbar #search input {
-          width: 150px;
-        }
-        #profile-dropdown {
-          width: 90vw;
-          right: 5vw;
-          top: 60px;
         }
       }
     </style>
@@ -307,21 +226,22 @@
           </div>
           <div class="submenu">
             <div class="submenu-item">
-              <a href="#"><i class="fa-solid fa-utensils"></i> Đồ ăn</a>
+              <a href="#"><i class="fa-solid fa-utensils"></i> Nước uống</a>
             </div>
             <div class="submenu-item">
-              <a href="#"><i class="fa-solid fa-mug-hot"></i> Nước uống</a>
+              <a href="#"><i class="fa-solid fa-mug-hot"></i> Thức ăn</a>
             </div>
           </div>
         </div>
         <div class="menu-item">
-          <a href="#"
-            ><i class="fa-solid fa-box-archive"></i> Lịch sử đặt hàng</a
-          >
+          <a href="#"><i class="fa-solid fa-box-archive"></i> Lịch sử đặt hàng</a>
         </div>
         <div class="menu-item">
           <a href="#"><i class="fa-solid fa-phone"></i> Liên hệ</a>
         </div>
+      </div>
+      <div id="logout">
+        <button>Đăng xuất</button>
       </div>
     </div>
     <div id="main">
@@ -330,43 +250,20 @@
           <input type="text" placeholder="Nhập nội dung cần tìm kiếm..." />
           <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-        <div
-          id="profile"
-          tabindex="0"
-          aria-haspopup="true"
-          aria-expanded="false"
-          aria-label="User profile menu"
-        >
+        <div id="profile">
           <div class="myprofile">
-            <img src="../assets/img/avt/1.jpg" alt="User avatar" />
+            <img src="../assets/img/avt/1.jpg" alt="Avt" />
             <div class="user-info">
               <p id="name">Nguyen Anh Huy</p>
               <p id="role">Quản trị viên</p>
             </div>
-          </div>
-          <div id="profile-dropdown" role="menu" aria-hidden="true">
-            <div class="header">
-              <img src="../assets/img/avt/1.jpg" alt="User avatar" />
-              <div class="info">
-                <p class="name">Nguyen Anh Huy</p>
-                <p class="email">soicaca77@gmail.com</p>
-                <button type="button">Xem Profile</button>
-              </div>
-            </div>
-            <ul>
-              <li><a href="#" role="menuitem">Xem đơn đặt hàng</a></li>
-              <li><a href="#" role="menuitem">Cài đặt tài khoản</a></li>
-              <li><a href="#" role="menuitem">Đăng xuất</a></li>
-            </ul>
           </div>
         </div>
       </div>
       <div id="main-content">
         <h2>Chào mừng đến với cửa hàng tiện lợi 5AE!</h2>
         <p>Chọn một chức năng từ menu bên trái để bắt đầu.</p>
-        <p style="margin-top: 1000px">
-          Cuộn trang thử xem, menu trái vẫn cố định.
-        </p>
+        <p style="margin-top: 1000px">Cuộn trang thử xem, menu trái vẫn cố định.</p>
       </div>
       <div id="footer">© 2025 5AE WebShop. All rights reserved.</div>
     </div>
@@ -378,38 +275,6 @@
           const submenu = $(this).siblings(".submenu");
           submenu.slideToggle();
           $(this).find(".caret-icon").toggleClass("rotate");
-        });
-        const profile = $("#profile");
-        const dropdown = $("#profile-dropdown");
-        function closeDropdown() {
-          dropdown.hide();
-          profile.attr("aria-expanded", "false");
-          dropdown.attr("aria-hidden", "true");
-        }
-        profile.on("click keydown", function (e) {
-          if (
-            e.type === "click" ||
-            (e.type === "keydown" && (e.key === "Enter" || e.key === " "))
-          ) {
-            e.preventDefault();
-            if (dropdown.is(":visible")) {
-              closeDropdown();
-            } else {
-              dropdown.show();
-              profile.attr("aria-expanded", "true");
-              dropdown.attr("aria-hidden", "false");
-            }
-          }
-        });
-        $(document).on("click", function (e) {
-          if (
-            !profile.is(e.target) &&
-            profile.has(e.target).length === 0 &&
-            !dropdown.is(e.target) &&
-            dropdown.has(e.target).length === 0
-          ) {
-            closeDropdown();
-          }
         });
       });
     </script>
