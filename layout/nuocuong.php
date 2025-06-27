@@ -267,6 +267,56 @@
       #profile-dropdown ul li a:hover {
         background-color: #f5f5f5;
       }
+
+      /* Suggestions styles */
+      .suggestions {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 16px;
+        margin: 20px -8px 0 -8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .suggestion-item {
+        flex: 0 0 calc((100% / 6) - 13.33px);
+        box-sizing: border-box;
+        padding: 0 8px;
+        min-width: 150px;
+      }
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+        background-color: #fafafa;
+        box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        border-bottom: 1px solid #ddd;
+      }
+      .card p {
+        margin: 12px 0;
+        text-align: center;
+        font-size: 1rem;
+        color: #333;
+        flex-grow: 1;
+        padding: 0 8px 12px;
+      }
+      /* Hide scrollbar for WebKit browsers */
+      .suggestions::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .suggestions {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
       @media (max-width: 768px) {
         #left-menu {
           position: relative;
@@ -287,7 +337,37 @@
           right: 5vw;
           top: 60px;
         }
+        .suggestion-item {
+          flex: 0 0 calc((100% / 3) - 10.66px);
+          min-width: 150px;
+        }
       }
+      @media (max-width: 480px) {
+        .suggestion-item {
+          flex: 0 0 calc((100% / 2) - 8px);
+          min-width: 150px;
+        }
+      }
+      .banner-row {
+        display: flex;
+        gap: 20px;
+        margin: 30px 10px;
+        flex-wrap: wrap;
+      }
+      
+      .banner-col {
+        flex: 1 1 45%;
+      }
+      
+      .banner-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 16px;
+        display: block;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      
     </style>
   </head>
   <body>
@@ -297,7 +377,7 @@
       </div>
       <div id="menu">
         <div class="menu-item">
-          <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
         </div>
         <div class="menu-item has-submenu">
           <div class="menu1">
@@ -307,7 +387,7 @@
           </div>
           <div class="submenu">
             <div class="submenu-item">
-              <a href="#"><i class="fa-solid fa-utensils"></i> Đồ ăn</a>
+              <a href="doan.php"><i class="fa-solid fa-utensils"></i> Đồ ăn</a>
             </div>
             <div class="submenu-item">
               <a href="#"><i class="fa-solid fa-mug-hot"></i> Nước uống</a>
@@ -362,11 +442,7 @@
         </div>
       </div>
       <div id="main-content">
-        <h2>Chào mừng đến với cửa hàng tiện lợi 5AE!</h2>
-        <p>Chọn một chức năng từ menu bên trái để bắt đầu.</p>
-        <p style="margin-top: 1000px">
-          Cuộn trang thử xem, menu trái vẫn cố định.
-        </p>
+        
       </div>
       <div id="footer">© 2025 5AE WebShop. All rights reserved.</div>
     </div>
