@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quản lý đơn hàng</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <div id="left-menu">
+    <div id="logo">
+      <img src="assets/img/logo1.png" alt="logo" />
+    </div>
+    <div id="menu">
+      <div class="menu-item"><a href="quanlysanpham.html"><i class="fa-solid fa-boxes-stacked"></i> Quản lý sản phẩm</a></div>
+      <div class="menu-item"><a href="quanlychitieu.html"><i class="fa-solid fa-wallet"></i> Quản lý chi tiêu</a></div>
+      <div class="menu-item active"><a href="quanlydonhang.html"><i class="fa-solid fa-receipt"></i> Quản lý đơn hàng</a></div>
+    </div>
+  </div>
+
+  <div id="main">
+    <div id="navbar">
+      <div id="search">
+        <input type="text" id="searchInput" placeholder="Tìm đơn hàng..." />
+        <button onclick="searchOrder()"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div id="profile">
+        <div class="myprofile">
+          <img src="assets/img/avt/1.jpg" />
+          <div class="user-info">
+            <p id="name">Nguyen Phuoc Thinh</p>
+            <p id="role">Quản trị viên</p>
+          </div>
+        </div>
+        <div id="profile-dropdown">
+          <div class="header">
+            <img src="assets/img/avt/1.jpg" />
+            <div class="info">
+              <p class="name">Nguyen Phuoc Thinh</p>
+              <p class="email">enpity@gmail.com</p>
+              <button>Xem Profile</button>
+            </div>
+          </div>
+          <ul>
+            <li><a href="#">Xem đơn đặt hàng</a></li>
+            <li><a href="#">Cài đặt tài khoản</a></li>
+            <li><a href="#">Đăng xuất</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="main-content">
+      <h3><i class="fa-solid fa-receipt"></i> Danh sách đơn hàng</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Mã đơn hàng</th>
+            <th>Số lượng</th>
+            <th>Ngày mua</th>
+            <th>Tên khách hàng</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="order-table">
+          <tr>
+            <td>DH001</td>
+            <td>3</td>
+            <td>2025-06-27</td>
+            <td>Nguyễn Văn A</td>
+            <td>
+              <button onclick="editOrder('DH001')">✏️</button>
+              <button onclick="deleteOrder('DH001')">🗑️</button>
+            </td>
+          </tr>
+          <tr>
+            <td>DH002</td>
+            <td>1</td>
+            <td>2025-06-25</td>
+            <td>Trần Thị B</td>
+            <td>
+              <button onclick="editOrder('DH002')">✏️</button>
+              <button onclick="deleteOrder('DH002')">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function editOrder(orderId) {
+      alert("Chức năng chỉnh sửa đơn hàng: " + orderId + " (sẽ kết nối CSDL sau)");
+    }
+
+    function deleteOrder(orderId) {
+      if (confirm("Bạn có chắc muốn xóa đơn hàng " + orderId + "?")) {
+        alert("Đã xóa đơn hàng: " + orderId);
+        // Sau này thêm logic xóa trong database
+      }
+    }
+
+    function searchOrder() {
+      const keyword = $("#searchInput").val().toLowerCase();
+      $("#order-table tr").each(function () {
+        const rowText = $(this).text().toLowerCase();
+        $(this).toggle(rowText.indexOf(keyword) > -1);
+      });
+    }
+
+    $("#profile").click(function () {
+      $("#profile-dropdown").toggle();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!-- quanlychitieu.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quản lý chi tiêu</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <div id="left-menu">
+    <div id="logo">
+      <img src="assets/img/logo1.png" alt="logo" />
+    </div>
+    <div id="menu">
+      <div class="menu-item"><a href="quanlysanpham.html"><i class="fa-solid fa-boxes-stacked"></i> Quản lý sản phẩm</a></div>
+      <div class="menu-item active"><a href="quanlychitieu.html"><i class="fa-solid fa-wallet"></i> Quản lý chi tiêu</a></div>
+      <div class="menu-item"><a href="quanlydonhang.html"><i class="fa-solid fa-receipt"></i> Quản lý đơn hàng</a></div>
+    </div>
+  </div>
+
+  <div id="main">
+    <div id="navbar">
+      <div id="search">
+        <input type="text" placeholder="Tìm chi tiêu..." />
+        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div id="profile">
+        <div class="myprofile">
+          <img src="assets/img/avt/1.jpg" />
+          <div class="user-info">
+            <p id="name">Nguyen Phuoc Thinh</p>
+            <p id="role">Quản trị viên</p>
+          </div>
+        </div>
+        <div id="profile-dropdown">
+          <div class="header">
+            <img src="assets/img/avt/1.jpg" />
+            <div class="info">
+              <p class="name">Nguyen Phuoc Thinh</p>
+              <p class="email">enpity@gmail.com</p>
+              <button>Xem Profile</button>
+            </div>
+          </div>
+          <ul>
+            <li><a href="#">Xem đơn đặt hàng</a></li>
+            <li><a href="#">Cài đặt tài khoản</a></li>
+            <li><a href="#">Đăng xuất</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="main-content">
+      <h3><i class="fa-solid fa-wallet"></i> Quản lý chi tiêu</h3>
+      <button onclick="showForm('add')">➕ Thêm chi tiêu</button>
+      <button onclick="showForm('edit')">✏️ Sửa chi tiêu</button>
+      <button onclick="showForm('delete')">🗑️ Xóa chi tiêu</button>
+
+      <div id="product-form" style="display: none;">
+        <h4 id="form-title"></h4>
+        <form></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showForm(action) {
+      const form = $("#product-form");
+      const formHtml = {
+        add: `
+          <label>Nội dung:</label><input type="text" name="desc" />
+          <label>Số tiền:</label><input type="number" name="amount" />
+          <label>Ngày:</label><input type="date" name="date" />
+        `,
+        edit: `
+          <label>ID chi tiêu:</label><input type="text" name="id" />
+          <label>Nội dung mới:</label><input type="text" name="desc" />
+          <label>Số tiền mới:</label><input type="number" name="amount" />
+        `,
+        delete: `
+          <label>ID chi tiêu:</label><input type="text" name="id" />
+          <p style="color:red;">Bạn có chắc muốn xóa không?</p>
+        `
+      };
+      form.show();
+      $("#form-title").text(
+        action === "add" ? "➕ Thêm chi tiêu" :
+        action === "edit" ? "✏️ Sửa chi tiêu" :
+        "🗑️ Xóa chi tiêu"
+      );
+      $("form").html(formHtml[action] + '<button type="submit">' +
+        (action === "add" ? "Thêm mới" : action === "edit" ? "Cập nhật" : "Xóa") +
+        '</button>');
+    }
+
+    $("#profile").click(function () {
+      $("#profile-dropdown").toggle();
+    });
+  </script>
+</body>
+</html>
