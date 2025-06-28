@@ -38,7 +38,6 @@
             <img src="assets/img/avt/1.jpg" />
             <div class="info">
               <p class="name">Nguyen Phuoc Thinh</p>
-              <p class="email">enpity@gmail.com</p>
               <button>Xem Profile</button>
             </div>
           </div>
@@ -53,25 +52,25 @@
 
     <div id="main-content">
       <h3>➕ Quản lý sản phẩm</h3>
-    
-      <!-- Form thêm sản phẩm -->
-      <form id="productForm">
-        <label for="tenSanPham">Tên sản phẩm:</label>
+
+      
+      <form id="productForm" enctype="multipart/form-data">
+        <input type="hidden" id="productId" name="id" />
+        <label for="tensanpham">Tên sản phẩm:</label>
         <input type="text" id="tenSanPham" name="tenSanPham" required />
-    
-        <label for="giaTien">Giá tiền (VND):</label>
+
+        <label for="gia">Giá tiền (VND):</label>
         <input type="number" id="giaTien" name="giaTien" required />
-    
-        <label for="hinhAnh" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+
+        <label for="hinhanh" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
           <i class="fa-regular fa-image" style="font-size: 22px; color: #6c5ce7;"></i> Chọn ảnh sản phẩm
         </label>
-        <input type="file" id="hinhAnh" name="hinhAnh" accept="image/*" style="display: none;" />
+        <input type="file" id="hinhanh" name="hinhAnh" accept="image/*" style="display: none;" />
         <span id="tenFileAnh" style="font-style: italic; font-size: 10px;"></span>
-    
-        <button type="submit">Thêm sản phẩm</button>
+
+        <button type="submit">💾 Lưu sản phẩm</button>
       </form>
-    
-      
+
       <h3 style="margin-top: 30px;">📦 Danh sách sản phẩm</h3>
       <table id="bangSanPham">
         <thead>
@@ -83,81 +82,78 @@
             <th>Hành động</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Dữ liệu sẽ được thêm ở đây -->
+        <tbody id="danhSachSanPham">
+       
         </tbody>
       </table>
     </div>
 
     <script>
-      let danhSach = [];
-      let stt = 1;
-      let editingIndex = -1;
-    
-      document.getElementById("hinhAnh").addEventListener("change", function () {
-        const fileName = this.files[0] ? this.files[0].name : "";
-        document.getElementById("tenFileAnh").textContent = fileName;
-      });
-    
-      document.getElementById("productForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-    
-        const ten = document.getElementById("tenSanPham").value;
-        const gia = document.getElementById("giaTien").value;
-        const fileInput = document.getElementById("hinhAnh");
-        const file = fileInput.files[0];
-        const anhURL = file ? URL.createObjectURL(file) : "";
-    
-        const sanPham = { ten, gia, anh: anhURL };
-    
-        if (editingIndex === -1) {
-          danhSach.push(sanPham);
-        } else {
-          danhSach[editingIndex] = sanPham;
-          editingIndex = -1;
-        }
-    
-        hienThiBang();
-        this.reset();
-        document.getElementById("tenFileAnh").textContent = "";
-      });
-    
-      function hienThiBang() {
-        const tbody = document.querySelector("#bangSanPham tbody");
-        tbody.innerHTML = "";
-    
-        danhSach.forEach((sp, index) => {
-          const row = document.createElement("tr");
-    
-          row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${sp.ten}</td>
-            <td>${sp.gia}₫</td>
-            <td><img src="${sp.anh}" alt="Ảnh" width="60" /></td>
-            <td>
-              <button onclick="suaSanPham(${index})">✏️ Sửa</button>
-              <button onclick="xoaSanPham(${index})">🗑️ Xóa</button>
-            </td>
-          `;
-          tbody.appendChild(row);
+      $(document).ready(function () {
+        loadDanhSach();
+
+      
+        $("#hinhanh").on("change", function () {
+          const fileName = this.files[0]?.name || "";
+          $("#tenFileAnh").text(fileName);
         });
-      }
-    
-      function suaSanPham(index) {
-        const sp = danhSach[index];
-        document.getElementById("tenSanPham").value = sp.ten;
-        document.getElementById("giaTien").value = sp.gia;
-        document.getElementById("tenFileAnh").textContent = "Bạn cần chọn lại ảnh nếu muốn sửa ảnh.";
-        editingIndex = index;
-      }
-    
-      function xoaSanPham(index) {
-        if (confirm("Bạn có chắc muốn xóa sản phẩm này?")) {
-          danhSach.splice(index, 1);
-          hienThiBang();
-        }
+
+   
+        $("#productForm").on("submit", function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const id = $("#productId").val();
+
+          formData.append("action", id ? "edit" : "add");
+          if (id) formData.append("id", id);
+
+          $.ajax({
+            url: "quanlysanpham.php",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function () {
+              loadDanhSach();
+              $("#productForm")[0].reset();
+              $("#tenFileAnh").text("");
+              $("#productId").val("");
+            },
+            error: function () {
+              alert("❌ Lỗi khi gửi form.");
+            }
+          });
+        });
+
+      
+        $(document).on("click", ".xoa-btn", function () {
+          const id = $(this).data("id");
+          if (confirm("Bạn có chắc muốn xóa sản phẩm này?")) {
+            $.post("quanlysanpham.php", { action: "delete", id: id }, function () {
+              loadDanhSach();
+            });
+          }
+        });
+
+       
+        $(document).on("click", ".sua-btn", function () {
+          const id = $(this).data("id");
+
+          $.post("quanlysanpham.php", { action: "get", id: id }, function (data) {
+            const sp = JSON.parse(data);
+            $("#tenSanPham").val(sp.tensanpham);
+            $("#giaTien").val(sp.gia);
+            $("#productId").val(sp.id);
+            $("#tenFileAnh").text("");
+            $("#hinhanh").val("");
+          });
+        });
+      });
+
+      function loadDanhSach() {
+        $("#danhSachSanPham").load("quanlysanpham.php");
       }
     </script>
-    
 </body>
 </html>

@@ -165,19 +165,6 @@ form button[type="submit"]:hover {
   background-color: #4a3dc0;
 }
 
-/* Bảng */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 8px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-thead {
-  background-color: #e0e0ff;
-}
 
 /* Hồ sơ người dùng */
 #profile {
