@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -457,76 +460,12 @@
     </style>
   </head>
   <body>
-    <div id="left-menu">
-      <div id="logo">
-        <img src="../assets/img/logo1.png" alt="logo" />
-      </div>
-      <div id="menu">
-        <div class="menu-item">
-          <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-        </div>
-        <div class="menu-item has-submenu">
-          <div class="menu1">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Mua hàng</span>
-            <i class="fa-solid fa-caret-down caret-icon"></i>
-          </div>
-          <div class="submenu">
-            <div class="submenu-item">
-              <a href="#"><i class="fa-solid fa-utensils"></i> Đồ ăn</a>
-            </div>
-            <div class="submenu-item">
-              <a href="nuocuong.php"><i class="fa-solid fa-mug-hot"></i> Nước uống</a>
-            </div>
-          </div>
-        </div>
-        <div class="menu-item">
-          <a href="#"
-            ><i class="fa-solid fa-box-archive"></i> Lịch sử đặt hàng</a
-          >
-        </div>
-        <div class="menu-item">
-          <a href="#"><i class="fa-solid fa-phone"></i> Liên hệ</a>
-        </div>
-      </div>
-    </div>
+    <?php 
+    include("../connect.php");
+    include("include/left-menu.php");
+    ?>
     <div id="main">
-      <div id="navbar">
-        <div id="search">
-          <input type="text" placeholder="Nhập nội dung cần tìm kiếm..." />
-          <button><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        <div
-          id="profile"
-          tabindex="0"
-          aria-haspopup="true"
-          aria-expanded="false"
-          aria-label="User profile menu"
-        >
-          <div class="myprofile">
-            <img src="../assets/img/avt/1.jpg" alt="User avatar" />
-            <div class="user-info">
-              <p id="name">Nguyen Anh Huy</p>
-              <p id="role">Quản trị viên</p>
-            </div>
-          </div>
-          <div id="profile-dropdown" role="menu" aria-hidden="true">
-            <div class="header">
-              <img src="../assets/img/avt/1.jpg" alt="User avatar" />
-              <div class="info">
-                <p class="name">Nguyen Anh Huy</p>
-                <p class="email">soicaca77@gmail.com</p>
-                <button type="button">Xem Profile</button>
-              </div>
-            </div>
-            <ul>
-              <li><a href="#" role="menuitem">Xem đơn đặt hàng</a></li>
-              <li><a href="#" role="menuitem">Cài đặt tài khoản</a></li>
-              <li><a href="#" role="menuitem">Đăng xuất</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <?php include("include/navbar.php"); ?>
       <div id="main-content">
       <div class="section-title">
       <h3>ĐỒ ĂN</h3>
@@ -582,7 +521,7 @@
         </div>
         </div>
       </div>
-      <div id="footer">© 2025 5AE WebShop. All rights reserved.</div>
+      <?php include("include/footer.php"); ?>
     </div>
     <script>
       $(document).ready(function () {

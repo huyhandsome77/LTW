@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -369,15 +370,19 @@
       }
       
       /* form lienhe */
-/* Thêm font chữ cho toàn bộ form */
+      #lienhe-layout{
+        display:flex;
+        justify-self: center;
+        gap : 30px;
+        margin:15px 0;
+      }
       .contact-form {
-          font-family: 'Arial', sans-serif; /* Chỉ định font chữ cho toàn bộ form */
+          font-family: 'Arial', sans-serif; 
           background: white;
-          padding: 30px 40px;
+          padding: 60px 60px;
           border-radius: 12px;
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-          width: 100%;
-          max-width: 500px;
+          width: 550px;
       }
 
       .contact-form h2 {
@@ -406,7 +411,7 @@
       .form-group input,
       .form-group textarea {
           padding: 10px 12px;
-          font-size: 1em;
+          font-size: 15px;
           border: 1px solid #ccc;
           border-radius: 6px;
           outline: none;
@@ -419,10 +424,11 @@
       }
 
       button[type="submit"] {
-          background-color: #007bff;
+          background-color: #6c5ce7;
           color: white;
           padding: 12px 18px;
-          font-size: 1em;
+          font-size: 15px;
+          font-weight: bold;
           border: none;
           border-radius: 6px;
           cursor: pointer;
@@ -430,108 +436,122 @@
       }
 
       button[type="submit"]:hover {
-          background-color: #0056b3;
+          background-color: #330099;
+          color : #FF0000;
       }
 
+      .div-info {
+          font-family: 'Arial', sans-serif; 
+          background: white;
+          padding: 60px 60px;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+          width: 550px;
+          height: 626.2px;
+      }
+      .div-info h3{
+        text-align : center;
+        padding: 10px 0;
+      }
+      .group-tt{
+        display:flex;
+        justify-self: center;
+        gap:5px;
+        margin : 7px 0;
+      }
+      .group-tt i{
+        font-size:20px;
+      }
+      .group-tt p{
+        font-size:18px;
+      }
+      .group-svg{
+        display:flex;
+        gap : 20px;
+        justify-self: center;
+        margin-top : 25px;
+      }
+      .group-svg img{
+        width: 50px;
+        height : 50px;
+      }
     </style>
   </head>
   <body>
-    <div id="left-menu">
-      <div id="logo">
-        <img src="../assets/img/logo1.png" alt="logo" />
-      </div>
-      <div id="menu">
-        <div class="menu-item">
-          <a href="#"><i class="fa-solid fa-house"></i> Home</a>
-        </div>
-        <div class="menu-item has-submenu">
-          <div class="menu1">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Mua hàng</span>
-            <i class="fa-solid fa-caret-down caret-icon"></i>
-          </div>
-          <div class="submenu">
-            <div class="submenu-item">
-              <a href="#"><i class="fa-solid fa-utensils"></i> Đồ ăn</a>
-            </div>
-            <div class="submenu-item">
-              <a href="#"><i class="fa-solid fa-mug-hot"></i> Nước uống</a>
-            </div>
-          </div>
-        </div>
-        <div class="menu-item">
-          <a href="#"
-            ><i class="fa-solid fa-box-archive"></i> Lịch sử đặt hàng</a
-          >
-        </div>
-        <div class="menu-item">
-          <a href="#"><i class="fa-solid fa-phone"></i> Liên hệ</a>
-        </div>
-      </div>
-    </div>
+    <?php 
+    include("../connect.php");
+    include("include/left-menu.php");
+    ?>
     <div id="main">
-      <div id="navbar">
-        <div id="search">
-          <input type="text" placeholder="Nhập nội dung cần tìm kiếm..." />
-          <button><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        <div
-          id="profile"
-          tabindex="0"
-          aria-haspopup="true"
-          aria-expanded="false"
-          aria-label="User profile menu"
-        >
-          <div class="myprofile">
-            <img src="../assets/img/avt/1.jpg" alt="User avatar" />
-            <div class="user-info">
-              <p id="name">Nguyen Anh Huy</p>
-              <p id="role">Quản trị viên</p>
-            </div>
-          </div>
-          <div id="profile-dropdown" role="menu" aria-hidden="true">
-            <div class="header">
-              <img src="../assets/img/avt/1.jpg" alt="User avatar" />
-              <div class="info">
-                <p class="name">Nguyen Anh Huy</p>
-                <p class="email">soicaca77@gmail.com</p>
-                <button type="button">Xem Profile</button>
-              </div>
-            </div>
-            <ul>
-              <li><a href="#" role="menuitem">Xem đơn đặt hàng</a></li>
-              <li><a href="#" role="menuitem">Cài đặt tài khoản</a></li>
-              <li><a href="#" role="menuitem">Đăng xuất</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <?php include("include/navbar.php"); ?>
       <div id="main-content">
+      <div id="lienhe-layout">
       <div class="contact-container">
-        <form class="contact-form" action="submit_LienHe" method="post">
-            <h2>Liên hệ với chúng tôi</h2>
-            <p>Nếu bạn có câu hỏi hay cần hỗ trợ, vui lòng điền vào form bên dưới.</p>
+        <form class="contact-form" action="xuly/submit_LienHe.php" method="post">
+          <h2>Liên hệ với chúng tôi</h2>
+          <p>Nếu bạn có câu hỏi hay cần hỗ trợ, vui lòng điền vào form bên dưới.</p>
 
-            <div class="form-group">
-            <label for="name">Họ và tên</label>
-            <input type="text" id="name" name="name" placeholder="Nguyễn Anh Huy" required>
-            </div>
+          <div class="form-group">
+            <label for="hoTen">Họ và tên</label>
+            <input type="text" id="hoTen" name="hoTen" required>
+          </div>
 
-            <div class="form-group">
+          <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
-            </div>
+            <input type="email" id="email" name="email" required>
+          </div>
 
-            <div class="form-group">
-            <label for="message">Nội dung</label>
-            <textarea id="message" name="message" placeholder="Nhập nội dung cần hỗ trợ..." rows="5" required></textarea>
-            </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required pattern="0[0-9]{9}">
+          </div>
 
-            <button type="submit">Gửi liên hệ</button>
+          <div class="form-group">
+            <label for="noiDung">Nội dung</label>
+            <textarea id="noiDung" name="noiDung" placeholder="Nhập nội dung cần hỗ trợ..." rows="4" required></textarea>
+          </div>
+
+          <button type="submit">Gửi liên hệ</button>
         </form>
+        <?php if (isset($_SESSION['thongbao'])): ?>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              icon: '<?= $_SESSION['thongbao']['type'] ?>',
+              title: '<?= $_SESSION['thongbao']['title'] ?>',
+              text: '<?= $_SESSION['thongbao']['message'] ?>',
+              confirmButtonText: 'OK'
+            });
+          </script>
+          <?php unset($_SESSION['thongbao']); ?>
+        <?php endif; ?>
+
+        </div>
+        <div class="div-info">
+          <img src="../assets/img/logo1.png" alt="Logo Webshop">
+          <h3>FIVE FRIENDS | ONLINE WEBSHOP</h3>
+          <div class="group-tt">
+          <i class="fa-solid fa-location-dot"></i>
+          <p>Số 02 Võ Oanh</p>
+          </div>
+          <div class="group-tt">
+          <i class="fa-solid fa-phone"></i>
+          <p>038.66.99.723</p>
+          </div>
+          <div class="group-tt">
+          <i class="fa-duotone fa-solid fa-envelope"></i>
+          <p>admin@fivefriend.webshop</p>
+          </div>
+          <div class="group-svg">
+            <img src="../assets/img/svg/facebook.svg" alt="">
+            <img src="../assets/img/svg/instagram.svg" alt="">
+            <img src="../assets/img/svg/tiktok.svg" alt="">
+            <img src="../assets/img/svg/youtube.svg" alt="">
+          </div>
+        </div>
         </div>
       </div>
-      <div id="footer">© 2025 5AE WebShop. All rights reserved.</div>
+      <?php include("include/footer.php"); ?>
     </div>
     <script>
       $(document).ready(function () {
