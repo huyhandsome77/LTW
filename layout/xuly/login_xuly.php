@@ -33,9 +33,13 @@ if ($row = mysqli_fetch_assoc($result)) {
         $_SESSION['user'] = [
             'idUser' => $row['idUser'],
             'username' => $row['username'],
+            'fullName'=> $row['fullName'],
             'role' => $row['role'],
             'email' => $row['email'],
-            'phone' => $row['phone']
+            'phone' => $row['phone'],
+            'avatar'=> $row['imgAvt'],
+            'address'=> $row['address'],
+            'created_at'=> $row['created_at'],
         ];
         header("Location: ../index.php");
         exit();

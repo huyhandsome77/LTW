@@ -456,6 +456,7 @@ session_start();
       <?php include("include/footer.php"); ?>
     </div>
     <script>
+      
       $(document).ready(function () {
         $(".submenu").hide();
         $(".menu1").click(function (e) {
@@ -463,38 +464,6 @@ session_start();
           const submenu = $(this).siblings(".submenu");
           submenu.slideToggle();
           $(this).find(".caret-icon").toggleClass("rotate");
-        });
-        const profile = $("#profile");
-        const dropdown = $("#profile-dropdown");
-        function closeDropdown() {
-          dropdown.hide();
-          profile.attr("aria-expanded", "false");
-          dropdown.attr("aria-hidden", "true");
-        }
-        profile.on("click keydown", function (e) {
-          if (
-            e.type === "click" ||
-            (e.type === "keydown" && (e.key === "Enter" || e.key === " "))
-          ) {
-            e.preventDefault();
-            if (dropdown.is(":visible")) {
-              closeDropdown();
-            } else {
-              dropdown.show();
-              profile.attr("aria-expanded", "true");
-              dropdown.attr("aria-hidden", "false");
-            }
-          }
-        });
-        $(document).on("click", function (e) {
-          if (
-            !profile.is(e.target) &&
-            profile.has(e.target).length === 0 &&
-            !dropdown.is(e.target) &&
-            dropdown.has(e.target).length === 0
-          ) {
-            closeDropdown();
-          }
         });
       });
     </script>

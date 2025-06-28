@@ -26,7 +26,7 @@
         <ul>
           <li><a href="#">Xem đơn đặt hàng</a></li>
           <li><a href="thongtincanhan.php">Cài đặt tài khoản</a></li>
-          <li><a href="../xuly/logout_xuly.php">Đăng xuất</a></li>
+          <li><a href="../layout/xuly/logout_xuly.php">Đăng xuất</a></li>
         </ul>
       </div>
     </div>
@@ -38,3 +38,42 @@
     </div>
   <?php endif; ?>
 </div>
+<script>
+  const profile = $("#profile");
+  const dropdown = $("#profile-dropdown");
+
+  function closeDropdown() {
+    dropdown.hide();
+    profile.attr("aria-expanded", "false");
+    dropdown.attr("aria-hidden", "true");
+  }
+
+  // Toggle dropdown
+  profile.on("click keydown", function (e) {
+    if (
+      e.type === "click" ||
+      (e.type === "keydown" && (e.key === "Enter" || e.key === " "))
+    ) {
+      e.preventDefault();
+      if (dropdown.is(":visible")) {
+        closeDropdown();
+      } else {
+        dropdown.show();
+        profile.attr("aria-expanded", "true");
+        dropdown.attr("aria-hidden", "false");
+      }
+    }
+  });
+
+  // ✅ Ngăn dropdown bị đóng khi click bên trong nó
+  dropdown.on("click", function (e) {
+    e.stopPropagation();
+  });
+
+  // ✅ Đóng dropdown khi click bên ngoài
+  $(document).on("click", function (e) {
+    if (!profile.is(e.target) && profile.has(e.target).length === 0) {
+      closeDropdown();
+    }
+  });
+</script>

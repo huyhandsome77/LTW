@@ -39,7 +39,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 // Thêm tài khoản mới
-$sql_insert = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
+$sql_insert = "INSERT INTO user (username, email, password, created_at) VALUES (?, ?, ?, NOW())";
 $stmt_insert = mysqli_prepare($link, $sql_insert);
 mysqli_stmt_bind_param($stmt_insert, "sss", $username, $email, $hashedPassword);
 
