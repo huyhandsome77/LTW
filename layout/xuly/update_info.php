@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../../connect.php"); // Biến kết nối là $link
+include("../../connect.php");
 
 $idUser = $_SESSION['user']['idUser'];
 $fullName = $_POST['name'];
@@ -23,7 +23,6 @@ if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
         $dest_path = $uploadFileDir . $newFileName;
 
         if (move_uploaded_file($fileTmpPath, $dest_path)) {
-            // Lưu đường dẫn tương đối từ gốc website
             $avatarPath = 'assets/img/uploads/' . $newFileName;
         }
     }

@@ -30,4 +30,6 @@
           <a href="lienhe.php"><i class="fa-solid fa-phone"></i> Liên hệ</a>
         </div>
       </div>
-    </div>
+</div>
+    
+<?php include("include/loading.php"); ?>

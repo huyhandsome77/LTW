@@ -17,113 +17,58 @@ session_start();
       rel="stylesheet"
     />
     <style>
-
-      /* Suggestions styles */
-      .suggestions {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 16px;
-        margin: 20px -8px 0 -8px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .suggestion-item {
-        flex: 0 0 calc((100% / 6) - 13.33px);
-        box-sizing: border-box;
-        padding: 0 8px;
-        min-width: 150px;
-      }
-      .card {
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        overflow: hidden;
-        background-color: #fafafa;
-        box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-      .card img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        display: block;
-        border-bottom: 1px solid #ddd;
-      }
-      .card p {
-        margin: 12px 0;
+      h3 {
+        margin-top : 10px;
         text-align: center;
-        font-size: 1rem;
-        color: #333;
-        flex-grow: 1;
-        padding: 0 8px 12px;
-      }
-      /* Hide scrollbar for WebKit browsers */
-      .suggestions::-webkit-scrollbar {
-        display: none;
-      }
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .suggestions {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-      @media (max-width: 768px) {
-        #left-menu {
-          position: relative;
-          width: 100%;
-          height: auto;
-        }
-        #main {
-          margin-left: 0;
-        }
-        #navbar {
-          padding: 5px 10px;
-        }
-        #navbar #search input {
-          width: 150px;
-        }
-        #profile-dropdown {
-          width: 90vw;
-          right: 5vw;
-          top: 60px;
-        }
-        .suggestion-item {
-          flex: 0 0 calc((100% / 3) - 10.66px);
-          min-width: 150px;
-        }
-      }
-      @media (max-width: 480px) {
-        .suggestion-item {
-          flex: 0 0 calc((100% / 2) - 8px);
-          min-width: 150px;
-        }
-      }
-      .banner-row {
-        display: flex;
-        gap: 20px;
-        margin: 30px 10px;
-        flex-wrap: wrap;
-      }
-      
-      .banner-col {
-        flex: 1 1 45%;
-      }
-      
-      .banner-card img {
+        font-weight: bold;
+        padding: 15px;
+        background-color: #6c5ce7;
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    #lsdh {
         width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 16px;
-        display: block;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
-      table{
-        width: 100%;
-      }
-      #lsdh tr td{
-        border : 1px solid black;
-        padding: 5px 10px;
-      }
+        background-color: white;
+        border-spacing: 0 5px;
+    }
+
+    #lsdh thead tr {
+        background-color: #6c5ce7;
+        color: white;
+        font-weight: bold;
+    }
+
+    #lsdh th, #lsdh td {
+        padding: 10px 12px;
+        text-align: center; 
+    }
+
+    #lsdh tbody tr {
+        background-color: #ffffff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+
+    #lsdh tbody tr:hover {
+        background-color: #f0f0ff;
+    }
+
+    .cancel-btn {
+        padding: 8px 14px;
+        background-color: #d63031;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .cancel-btn:hover {
+        background-color: #e74c3c;
+    }
     </style>
   </head>
   <body>
@@ -134,29 +79,51 @@ session_start();
     <div id="main">
       <?php include("include/navbar.php"); ?>
       <div id="main-content">
-        <h3 style="text-align:center;font-weight:bold;padding:10px;">LỊCH SỬ ĐẶT HÀNG</h3>
-        <table id="lsdh">
-            <tr style="background-color: #6c5ce7; text-align:center;font-weight:bold;color:white">
-                <td>STT</td>
-                <td>Mã đơn hàng</td>
-                <td>Tên sản phẩm</td>
-                <td>Ngày đặt hàng</td>
-                <td>Trạng thái</td>
-                <td>Hành động</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>ABCD</td>
-                <td>Nước lọc</td>
-                <td style="text-align:center;">17-11-2005</td>
-                <td style="text-align:center;">Đang đặt hàng</td>
-                <td style="text-align:center;">
-                    <button>Hủy đơn hàng</button>
-                </td>
-            </tr>
-        </table>
+      <h3>LỊCH SỬ ĐẶT HÀNG</h3>
+      <table id="lsdh">
+          <thead>
+              <tr>
+                  <th>STT</th>
+                  <th>Mã đơn hàng</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Ngày đặt hàng</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+              </tr>
+          </thead>
+          <tbody>
+              <?php
+              $idUser = $_SESSION['user']['idUser'];
+              $sql = "
+                  SELECT l.idDonHang, s.tenSanPham, l.ngayDat, l.trangThai
+                  FROM lichsudathang l
+                  JOIN sanpham s ON l.idSanPham = s.idSanPham
+                  WHERE l.idUser = $idUser
+                  ORDER BY l.ngayDat DESC
+              ";
+              $result = mysqli_query($link, $sql);
+              $stt = 1;
+
+              while ($row = mysqli_fetch_assoc($result)) {
+                  echo "<tr>";
+                  echo "<td>" . $stt++ . "</td>";
+                  echo "<td>" . htmlspecialchars($row['idDonHang']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['tenSanPham']) . "</td>";
+                  echo "<td>" . date("d-m-Y", strtotime($row['ngayDat'])) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['trangThai']) . "</td>";
+
+                  if ($row['trangThai'] == 'Chờ Xác Nhận') {
+                      echo "<td><button class='cancel-btn' onclick=\"huyDon(" . $row['idDonHang'] . ")\">Hủy đơn hàng</button></td>";
+                  } else {
+                      echo "<td>—</td>";
+                  }
+
+                  echo "</tr>";
+              }
+              ?>
+              </tbody>
+      </table>
         <p style="margin-top: 1000px">
-          Cuộn trang thử xem, menu trái vẫn cố định.
         </p>
       </div>
       <?php include("include/footer.php"); ?>
@@ -170,8 +137,12 @@ session_start();
           submenu.slideToggle();
           $(this).find(".caret-icon").toggleClass("rotate");
         });
-        
       });
+      function huyDon(id) {
+          if (confirm("Bạn có chắc muốn hủy đơn hàng #" + id + " không?")) {
+            window.location.href = "xuly/huyDonHang.php?id=" + id;
+          }
+        }
     </script>
   </body>
 </html>

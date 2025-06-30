@@ -8,15 +8,15 @@
     <!-- Đã đăng nhập -->
     <div id="profile" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
       <div class="myprofile">
-        <img src="../assets/img/avt/1.jpg" alt="User avatar" />
+      <img src="../<?php echo htmlspecialchars($_SESSION['user']['avatar']); ?>" alt="User avatar" />
         <div class="user-info">
-          <p id="name"><?= htmlspecialchars($_SESSION['user']['username']) ?></p>
-          <p id="role"><?= htmlspecialchars($_SESSION['user']['role']) ?></p>
+          <p id="name"><i style="margin:0 5px;" class="fa-solid fa-user"></i>  <?= htmlspecialchars($_SESSION['user']['username']) ?></p>
+          <p id="role"><i style="margin:0 5px;" class="fas fa-shield-alt"></i>  <?= htmlspecialchars($_SESSION['user']['role']) ?></p>
         </div>
       </div>
       <div id="profile-dropdown" role="menu" aria-hidden="true">
         <div class="header">
-          <img src="../assets/img/avt/1.jpg" alt="User avatar" />
+        <img src="../<?php echo htmlspecialchars($_SESSION['user']['avatar']); ?>" alt="User avatar" />
           <div class="info">
             <p class="name"><?= htmlspecialchars($_SESSION['user']['username']) ?></p>
             <p class="email"><?= htmlspecialchars($_SESSION['user']['email']) ?></p>
@@ -24,7 +24,7 @@
           </div>
         </div>
         <ul>
-          <li><a href="#">Xem đơn đặt hàng</a></li>
+          <li><a href="lichsudathang.php">Xem đơn đặt hàng</a></li>
           <li><a href="thongtincanhan.php">Cài đặt tài khoản</a></li>
           <li><a href="../layout/xuly/logout_xuly.php">Đăng xuất</a></li>
         </ul>

@@ -251,7 +251,10 @@ session_start();
         />
 
         <!-- Tên người dùng -->
-        <h2 class="profile-name"><?php echo htmlspecialchars($user['fullName'] ?? 'Chưa có tên'); ?></h2>
+        <h2 class="profile-name">
+          <?php echo htmlspecialchars($user['fullName'] ?? 'Chưa có tên'); ?>
+          <img src="../assets/img/png/tick.png" alt="Verified" style="width: 20px; height: 20px; margin-left: 3px; vertical-align: middle;" />
+        </h2>
 
         <!-- Email -->
         <div class="info-group">
