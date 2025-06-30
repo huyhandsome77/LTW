@@ -7,8 +7,6 @@
     font-family: "Roboto", sans-serif;
     background-color: #f0f0f0;
   }
-  
-  /* Menu trái */
   #left-menu {
     position: fixed;
     top: 0;
@@ -34,6 +32,7 @@
   }
   #menu .menu-item {
     padding: 12px 20px;
+    color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
@@ -52,14 +51,50 @@
     align-items: center;
     gap: 10px;
   }
-  
-  /* Nội dung chính */
+  .menu1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    gap: 10px;
+  }
+  .submenu {
+    display: none;
+    background-color: #5a4cd1;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding: 5px 0;
+    border-radius: 10px;
+  }
+  .submenu-item {
+    padding: 8px 16px;
+    background-color: #7b6de3;
+    margin: 5px 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+  }
+  .submenu-item a {
+    color: #e6e6fa;
+    text-decoration: none;
+  }
+  .submenu-item:hover {
+    background-color: #8c7ff0;
+  }
+  .submenu-item:hover a {
+    color: #fff;
+  }
+  .caret-icon {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+  }
+  .rotate {
+    transform: rotate(180deg);
+  }
   #main {
     margin-left: 250px;
     padding: 5px 20px;
   }
-  
-  /* Thanh navbar */
   #navbar {
     height: 60px;
     background-color: #fff;
@@ -73,16 +108,16 @@
     z-index: 20;
   }
   #navbar #search input {
-    padding: 10px;
+    padding: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     width: 250px;
     font-size: 15px;
   }
   #navbar #search button {
-    padding: 10px;
-    margin-left: 3px;
+    padding: 10px 10px;
     border: 1px solid rgb(177, 177, 177);
+    margin-left: 3px;
     color: black;
     border-radius: 10px;
     cursor: pointer;
@@ -92,146 +127,20 @@
     background-color: #666;
     color: white;
   }
-  
-  /* Phần nội dung */
+
   #main-content {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    font-size: 16px;
+    padding: 5px 20px;
+    min-height: 400px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
-  #main-content h3 {
-    font-size: 22px;
-    color: #6c5ce7;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  #main-content button {
-    background-color: #6c5ce7;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
-  }
-  #main-content button:hover {
-    background-color: #5947d3;
-  }
-  
-  /* Form chung */
-  form {
+
+  #footer {
     margin-top: 20px;
-    padding: 20px;
-    background-color: #f8f8ff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-  }
-  form label {
-    font-weight: 500;
-    color: #333;
-  }
-  form input[type="text"],
-  form input[type="number"],
-  form input[type="file"],
-  form input[type="date"],
-  form select {
-    width: 100%;
     padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 15px;
-    background-color: #fff;
+    text-align: center;
+    background-color: #ddd;
   }
-  form button[type="submit"] {
-    background-color: #6c5ce7;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 15px;
-  }
-  form button[type="submit"]:hover {
-    background-color: #4a3dc0;
-  }
-
-  
-  /* Bảng sản phẩm */
-#bangSanPham {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-#bangSanPham th, td {
-  border: 1px solid #dddddd;
-  padding: 8px;
-  text-align: center;
-}
-#bangSanPham img {
-  width: 60px;
-  height: auto;
-}
-
-  /*bảng đơn hàng*/
-#bangDonHang {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-#bangDonHang th, #bangDonHang td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
-}
-
-#bangDonHang th {
-  background-color: #ffffff;
-}
-
-.status-dropdown {
-  padding: 5px;
-  
-}
-
-
-
-
-
-
-  
-
-  
-  /* Nút trong cột hành động đơn giản */
-  .btn-action {
-    background-color: #6c5ce7;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 0 4px;
-  }
-
-  .btn-action:hover {
-    background-color: #5947d3;
-  }
-
-
-  
-  
-  /* Hồ sơ người dùng */
   #profile {
     display: flex;
     align-items: center;
@@ -241,7 +150,7 @@
     cursor: pointer;
   }
   .myprofile {
-    display: flex;
+display: flex;
     align-items: center;
     gap: 15px;
     padding: 0 5px;
@@ -275,9 +184,13 @@
     width: 280px;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
     border: 1px solid #ddd;
     z-index: 30;
+    font-family: "Roboto", sans-serif;
+  }
+  .myprofile:hover {
+    background-color: #b3b3b3;
   }
   #profile-dropdown .header {
     display: flex;
@@ -291,14 +204,20 @@
     height: 60px;
     border-radius: 10px;
     object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px;
+  }
+  #profile-dropdown .header .info {
+    flex-grow: 1;
   }
   #profile-dropdown .header .info p.name {
     font-weight: 600;
     color: #333;
+    margin-bottom: 4px;
   }
   #profile-dropdown .header .info p.email {
     font-size: 0.9em;
     color: #666;
+    margin-bottom: 8px;
   }
   #profile-dropdown .header .info button {
     background-color: #5a5ad1;
@@ -308,6 +227,7 @@
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   #profile-dropdown .header .info button:hover {
     background-color: #4a49b8;
@@ -326,12 +246,11 @@
     color: #333;
     text-decoration: none;
     font-size: 1rem;
+    transition: background-color 0.2s ease;
   }
   #profile-dropdown ul li a:hover {
     background-color: #f5f5f5;
   }
-  
-  /* Responsive */
   @media (max-width: 768px) {
     #left-menu {
       position: relative;
@@ -341,14 +260,16 @@
     #main {
       margin-left: 0;
     }
+    #navbar {
+      padding: 5px 10px;
+    }
     #navbar #search input {
       width: 150px;
     }
     #profile-dropdown {
       width: 90vw;
       right: 5vw;
+      top: 60px;
     }
-    
-  }
-  
 
+  }
