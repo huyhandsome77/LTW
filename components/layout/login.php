@@ -9,12 +9,12 @@
         <?php
         session_start();
         if (isset($_SESSION['username'])) {
-            header("Location: /projectwebbanhang/Src/page/Admin/Admin.php");
+            header("Location: /ltw/page/Admin/Admin.php");
             exit;
         }
         ?>
         <h1>Đăng nhập</h1>
-        <form action="/projectwebbanhang/Src/components/layout/login.php" method="post">
+        <form action="/ltw/components/layout/login.php" method="post">
             <label for="username">Tên đăng nhập:</label>
             <input type="text" id="username" name="username" required>
             <br>
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($username === $testUsername && $password === $testPassword) {
         $_SESSION['username'] = $username;
 
-        header("Location: /projectwebbanhang/Src/page/Admin/Admin.php");
+        header("Location: /ltw/page/Admin/Admin.php");
         exit;
     } else {
         echo "<p style='color:red;'>Tên đăng nhập hoặc mật khẩu không đúng.</p>";

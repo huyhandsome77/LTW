@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (!isset($_SESSION['username'])) {
-    header("Location: /projectwebbanhang/Src/components/layout/login.php");
+    header("Location: /ltw/components/layout/login.php");
     exit;
 }
 ?>
@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
-    <link rel="stylesheet" href="/projectwebbanhang/Src/assets/css/admin.css">
+    <link rel="stylesheet" href="/ltw/assets/css/admin/admin.css">
     <script src="../../assets/js/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link
@@ -90,7 +90,6 @@ if (!isset($_SESSION['username'])) {
         </div>
       </div>
       <div id="main-content">
-        <h1>Layout Admin Page</h1>
         <?= $pageContent ?? '<p>Không có nội dung.</p>' ?>
       </div>
       <div id="footer">© 2025 5AE WebShop. All rights reserved.</div>
@@ -131,7 +130,7 @@ if (!isset($_SESSION['username'])) {
         });
         $("#logout-btn").on("click", function (e) {
   e.preventDefault();
-  window.location.href = "/projectwebbanhang/Src/components/layout/logout.php";
+  window.location.href = "/ltw/components/layout/logout.php";
 });
 
       });

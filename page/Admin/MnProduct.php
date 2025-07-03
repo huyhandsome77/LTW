@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Sản Phẩm</title>
-    <link rel="stylesheet" href="/projectwebbanhang/Src/assets/css/admin.css">
     <script src="../../assets/js/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link
@@ -14,22 +13,83 @@
 </head>
 <body>
     <?php
-    require_once(__DIR__ . '/../../config/connectdb.php');
-    $pageContent = '
-    <br>
-     <h1>Quản Lý Sản Phẩm</h1>
-    <p>Trang này sẽ hiển thị danh sách các sản phẩm và cho phép bạn quản lý chúng.</p>
-    <p>Hiện tại, trang này chưa được triển khai đầy đủ. Vui lòng quay lại sau để xem các cập nhật mới nhất.</p>
-    <p>Cảm ơn bạn đã sử dụng hệ thống quản lý của chúng tôi!</p>
-    <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email hoặc điện thoại.</p>
-    <ul>
-        <li>Email: <a href="mailto:HaiConVit@gmail.com"> HaiConVit@gmail.com</a>
-        <li>Điện thoại: <a href="tel:+84987654321">+84 987 654 321</a></li>
-        <li>Địa chỉ: Số 123, Đường ABC, Quận XYZ, Thành phố Hồ Chí Minh</li>
-    </ul>
-    ';
-   include (__DIR__ . '/../../components/layout/layoutadmin.php');
+   ob_start();
     ?>
-   
+<div class="product-page">
+  <div class="container">
+    <div class="header">
+      <a href="#" class="btn-primary">Thêm sản phẩm</a>
+    </div>
+    <div class="filter-bar">
+    <input type="text" class="search-box" placeholder="Tìm kiếm sản phẩm...">
+    <select class="filter-select" id="categoryFilter">
+      <option value="all">Tất cả danh mục</option>
+      <option value="1">Thực phẩm</option>
+      <option value="2">Nước uống</option>
+      <option value="3">Đồ dùng cá nhân</option>
+    </select>
+  </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Hình ảnh</th>
+          <th>Tên sản phẩm</th>
+          <th>Giá bán</th>
+          <th>Tồn kho</th>
+          <th>Danh mục </th>
+          <th>Mô tả</th>
+          <th>Trạng thái</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-category-id="2">
+          <td>1</td>
+          <td><img src="https://via.placeholder.com/60" class="table-img" /></td>
+          <td>Mì Hảo Hảo tôm chua cay</td>
+          <td>3.500₫</td>
+          <td>250</td>
+          <td>loại sản phẩm sẽ ở đây</td>
+          <td>mô tả sản phẩm sẽ ở đây</td>
+          <td><span class="badge bg-success">Đang bán</span></td>
+          <td class="action-buttons">
+            <a href="#" class="btn-sm btn-warning">Sửa</a>
+            <a href="#" class="btn-sm btn-danger">Xoá</a>
+          </td>
+        </tr>
+       
+      </tbody>
+    </table>
+  </div>
+<div class="pagination">
+      <a href="#">«</a>
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">»</a>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  const categoryFilter = document.getElementById("categoryFilter");
+  categoryFilter.addEventListener("change", function () {
+    const selected = this.value;
+    document.querySelectorAll("tbody tr").forEach((row) => {
+      const cat = row.getAttribute("data-category-id");
+      if (selected === "all" || selected === cat) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  });
+</script>
+
+   <?php
+   $pageContent = ob_get_clean();
+    include(__DIR__ . '/../../components/layout/layoutadmin.php');
+    ?>
 </body>
 <html>

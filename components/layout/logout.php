@@ -3,6 +3,6 @@
        $_SESSION = [];
         session_unset();
         session_destroy();
-        header("Location: /projectwebbanhang/Src/components/layout/login.php");
+        header("/ltw/components/layout/login.php");
         exit;
         ?>

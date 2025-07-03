@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý khách hàng</title>
-    <link rel="stylesheet" href="/projectwebbanhang/Src/assets/css/admin.css">
+    
     <script src="../../assets/js/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link
@@ -14,22 +14,73 @@
 </head>
 <body>
     <?php
-    require_once(__DIR__ . '/../../config/connectdb.php');
-   $pageContent = '
-    <br>
-    <h1>Quản lý khách hàng</h1>
-    <p>Trang này sẽ hiển thị danh sách khách hàng và các chức năng quản lý liên quan.</p>
-    <p>Hiện tại, trang này chưa được triển khai đầy đủ. Vui lòng quay lại sau để xem các cập nhật mới nhất.</p>
-    <p>Cảm ơn bạn đã sử dụng hệ thống quản lý của chúng tôi!</p>
-    <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email hoặc điện thoại.</p>
-     <ul>
-        <li>Email: <a href="mailto:HaiConVit@gmail.com">HaiConVit@gmail.com</a>
-        <li>Điện thoại: <a href="tel:+84987654321">+84 987 654 321</a></li>
-        <li>Địa chỉ: Số 123, Đường ABC, Quận XYZ, Thành phố Hồ Chí Minh</li>
-    </ul>
-    ';
-   include (__DIR__ . '/../../components/layout/layoutadmin.php');
+   ob_start();
     ?>
-    
+<div class="customer-page">
+  <div class="container">
+    <div class="header d-flex justify-space-between align-items-center mb-3">
+      <h2>Quản lý khách hàng</h2>
+      <a href="#" class="btn-primary">+ Thêm khách hàng</a>
+    </div>
+
+    <div class="filter-bar d-flex justify-space-between align-items-center mb-3">
+      <input type="text" class="search-box" placeholder="Tìm theo tên, email, SĐT...">
+      <select class="filter-select">
+        <option>Tất cả</option>
+        <option>Hoạt động</option>
+        <option>Bị khóa</option>
+      </select>
+    </div>
+
+    <table class="table-customer">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Họ tên</th>
+          <th>Email</th>
+          <th>Số điện thoại</th>
+          <th>Trạng thái</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Nguyễn Văn A</td>
+          <td>vana@gmail.com</td>
+          <td>0901234567</td>
+          <td><span class="badge active">Hoạt động</span></td>
+          <td>
+            <a href="#" class="btn-sm btn-warning">Sửa</a>
+            <a href="#" class="btn-sm btn-danger">Xoá</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Trần Thị B</td>
+          <td>tranb@gmail.com</td>
+          <td>0911223344</td>
+          <td><span class="badge inactive">Bị khóa</span></td>
+          <td>
+            <a href="#" class="btn-sm btn-warning">Sửa</a>
+            <a href="#" class="btn-sm btn-danger">Xoá</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <a href="#">«</a>
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">»</a>
+    </div>
+  </div>
+</div>
+    <?php
+   $pageContent = ob_get_clean();
+    include(__DIR__ . '/../../components/layout/layoutadmin.php');
+    ?>
 </body>
 <html>

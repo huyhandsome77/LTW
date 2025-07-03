@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khuyến mãi</title>
-    <link rel="stylesheet" href="/projectwebbanhang/Src/assets/css/admin.css">
+    <link rel="stylesheet" href="/ltw/assets/css/admin.css">
     <script src="../../assets/js/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link
@@ -14,21 +14,62 @@
 </head>
 <body>
     <?php
-    require_once(__DIR__ . '/../../config/connectdb.php');
-    $pageContent = '
-    <br>
-    <h1>Khuyến mãi</h1>
-    <p>Trang này sẽ hiển thị danh sách các chương trình khuyến mãi và cho phép bạn quản lý chúng.</p>
-    <p>Hiện tại, trang này chưa được triển khai đầy đủ. Vui lòng quay lại sau để xem các cập nhật mới nhất.</p>
-    <p>Cảm ơn bạn đã sử dụng hệ thống quản lý của chúng tôi!</p>
-    <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email hoặc điện thoại.</p>
-    <ul>
-        <li>Email: <a href="mailto:HaiConVit@gmail.com"> HaiConVit@gmail.com</a>
-        <li>Điện thoại: <a href="tel:+84987654321">+84 987 654 321</a></li>
-        <li>Địa chỉ: Số 123, Đường ABC, Quận XYZ, Thành phố Hồ Chí Minh</li>
-    </ul>
-    ';
-   include (__DIR__ . '/../../components/layout/layoutadmin.php');
+   ob_start();
+    ?>
+<div class="page-discount-management">
+  <div class="header">
+    <a href="#" class="btn-add" onclick="showAddForm()">+ Thêm mã giảm giá</a>
+    <input type="text" class="search-box" placeholder="Tìm mã...">
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Mã Code</th>
+        <th>Giá trị giảm</th>
+        <th>Đơn tối thiểu</th>
+        <th>Thời gian áp dụng</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody id="discountTableBody">
+      <tr>
+        <td>1</td>
+        <td>SUMMER20</td>
+        <td>20%</td>
+        <td>200.000₫</td>
+        <td>01/07 - 10/07</td>
+        <td>
+          <a href="#" class="btn-sm btn-warning">Sửa</a>
+          <a href="#" class="btn-sm btn-danger">Xoá</a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>FREESHIP</td>
+        <td>30.000₫</td>
+        <td>150.000₫</td>
+        <td>05/07 - 20/07</td>
+        <td>
+          <a href="#" class="btn-sm btn-warning">Sửa</a>
+          <a href="#" class="btn-sm btn-danger">Xoá</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  function showAddForm() {
+    alert("Hiển thị form thêm mã giảm giá tại đây.");
+  }
+
+  // Bạn có thể gắn thêm xử lý phân biệt dạng giảm giá %
+  // hoặc số tiền dựa vào pattern hoặc select-type nếu có form.
+</script>
+    <?php
+   $pageContent = ob_get_clean();
+    include(__DIR__ . '/../../components/layout/layoutadmin.php');
     ?>
 </body>
 <html>
