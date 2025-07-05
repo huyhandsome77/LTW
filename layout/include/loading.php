@@ -98,17 +98,19 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("a[href]").forEach(function (a) {
     a.addEventListener("click", function (e) {
       const href = a.getAttribute("href");
+      // Bỏ qua liên kết có href là javascript:history.back()
       if (
         href &&
         !href.startsWith("#") &&
         !a.hasAttribute("target") &&
-        !href.startsWith("javascript:")
+        !href.startsWith("javascript:") &&
+        href !== "javascript:history.back()"
       ) {
         e.preventDefault();
         showPageLoader();
         setTimeout(() => {
           window.location.href = href;
-        }, 500); // delay 1s để thấy spinner
+        }, 500); // delay 500ms để thấy spinner
       }
     });
   });

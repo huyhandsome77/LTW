@@ -32,4 +32,4 @@
       </div>
 </div>
     
-<?php include("include/loading.php"); ?>
+<?php include("loading.php"); ?>

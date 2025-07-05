@@ -3,13 +3,14 @@ session_start();
 include("../../connect.php");
 
 if (isset($_GET['id']) && isset($_SESSION['user']['idUser'])) {
-    $id = intval($_GET['id']);
+    $idDonHang = intval($_GET['id']);
     $idUser = $_SESSION['user']['idUser'];
 
+    // Chỉ cập nhật trạng thái nếu đơn hàng thuộc về user và đang chờ xác nhận
     $sql = "
-        UPDATE lichsudathang 
+        UPDATE donhang 
         SET trangThai = 'Đã Hủy' 
-        WHERE idDonHang = $id 
+        WHERE idDonHang = $idDonHang 
         AND idUser = $idUser 
         AND trangThai = 'Chờ Xác Nhận'
     ";

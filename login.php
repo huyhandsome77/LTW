@@ -1,4 +1,46 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include("connect.php");
+
+// ✅ Nếu đã đăng nhập (qua session) hoặc có cookie remember thì tự động chuyển hướng
+if (isset($_SESSION['user']) || isset($_COOKIE['remember'])) {
+    // Nếu chưa có session mà có cookie => tự đăng nhập
+    if (!isset($_SESSION['user']) && isset($_COOKIE['remember'])) {
+        $username = $_COOKIE['remember'];
+        $stmt = $link->prepare("SELECT * FROM user WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($user = $result->fetch_assoc()) {
+            $_SESSION['user'] = [
+                'idUser' => $user['idUser'],
+                'username' => $user['username'],
+                'fullName' => $user['fullName'],
+                'role' => $user['role'],
+                'email' => $user['email'],
+                'phone' => $user['phone'],
+                'avatar' => $user['imgAvt'],
+                'address' => $user['address'],
+                'created_at' => $user['created_at'],
+            ];
+        }
+    }
+    if (isset($_SESSION['user'])) {
+        switch ($_SESSION['user']['role']) {
+            case 'Admin':
+                header("Location: ../index.php");
+                break;
+            case 'Manager':
+                header("Location: ../index.php");
+                break;
+            case 'User':
+                header("Location: layout/index.php");
+                break;
+        }
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,19 +51,19 @@
     <style>
     body {
         margin: 0;
-        height: 100vh; /* Chiều cao luôn bằng 100% viewport */
+        height: 100vh; 
         background-image: url('assets/img/background-login.jpg');
-        background-size: cover;           /* Phóng vừa đủ để phủ kín */
-        background-repeat: no-repeat;     /* Không lặp lại ảnh */
-        background-position: center;      /* Căn giữa ảnh */
-        background-attachment: fixed;     /* Giữ cố định khi cuộn (nếu có) */
+        background-size: cover;           
+        background-repeat: no-repeat;     
+        background-position: center;      
+        background-attachment: fixed;   
         display:flex;
         justify-content: center;
         align-items: center;
     }
     form {
     padding: 30px 40px;
-    background-color: rgba(255, 255, 255, 0.9); /* nền trắng mờ */
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -65,7 +107,15 @@
         transform: scale(1.02);
         transition: 0.2s ease-in-out;
     }
-
+    .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    }
+    .checkbox-group label {
+    font-size: 14px;
+    }
     </style>
 </head>
 <body>
@@ -80,6 +130,10 @@
         <div class="group-item">
             <label for="password">Password : </label>
             <input type="password" name="password" required>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" name="remember" id="remember">
+            <label for="remember">Ghi nhớ</label>
         </div>
         <button type="submit">Đăng nhập</button>
         <p>Bạn chưa có tài khoản ? <a href="signup.php">Đăng Kí</a></p>

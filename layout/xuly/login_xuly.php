@@ -13,18 +13,17 @@ if (empty($_POST['username']) || empty($_POST['password'])) {
     exit();
 }
 
-$username = trim($_POST['username']);
+$username = trim($_POST['username']); // trim loại bỏ khoảng trắng ở đầu và cuối chuỗi
 $password = $_POST['password'];
 
 // Truy vấn người dùng theo username
-$sql = "SELECT * FROM user WHERE username = ?";
-$stmt = mysqli_prepare($link, $sql);
+$stmt = $link->prepare("SELECT * FROM user WHERE username = ?");
 if (!$stmt) {
     die("Lỗi prepare: " . mysqli_error($link));
 }
 
-mysqli_stmt_bind_param($stmt, "s", $username);
-mysqli_stmt_execute($stmt);
+$stmt->bind_param("s", $username); 
+$stmt->execute();
 $result = mysqli_stmt_get_result($stmt);
 
 if ($row = mysqli_fetch_assoc($result)) {
@@ -41,7 +40,20 @@ if ($row = mysqli_fetch_assoc($result)) {
             'address'=> $row['address'],
             'created_at'=> $row['created_at'],
         ];
-        header("Location: ../index.php");
+        if (isset($_POST['remember'])) {
+            setcookie('remember', $row['username'], time() + (86400 * 30), "/"); // 30 ngày
+        }
+        switch ($row['role']) {
+            case 'Admin':
+                header("Location: ../");
+                break;
+            case 'Manager':
+                header("Location: ../../layoutmanager/quanlysanpham.php");
+                break;
+            case 'User':
+                header("Location: ../index.php");
+                break;
+        }
         exit();
     } else {
         // ❌ Sai mật khẩu

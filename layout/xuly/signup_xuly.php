@@ -19,7 +19,7 @@ if ($password !== $confirm) {
 }
 
 // Băm mật khẩu
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT); 
 
 // Kiểm tra username đã tồn tại chưa
 $sql_check = "SELECT * FROM user WHERE username = ?";

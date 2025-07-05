@@ -70,7 +70,7 @@
       }
 
       button[type="submit"] {
-          background-color: #6c5ce7;
+          background-color: var(--left-menu-color);
           color: white;
           padding: 12px 18px;
           font-size: 15px;
@@ -155,7 +155,7 @@
 
           <div class="form-group">
             <label for="noiDung">Nội dung</label>
-            <textarea id="noiDung" name="noiDung" placeholder="Nhập nội dung cần hỗ trợ..." rows="4" required></textarea>
+            <textarea id="noiDung" name="noiDung" rows="4" required></textarea>
           </div>
 
           <button type="submit">Gửi liên hệ</button>
