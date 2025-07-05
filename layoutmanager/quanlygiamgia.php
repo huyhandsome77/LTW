@@ -1,83 +1,83 @@
 <?php
 session_start();
-?>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | 5AE WebShop</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/manager.css">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <style>
-    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
-    table { width: 100%; border-collapse: collapse; background: #fff; }
-    th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
-    input[type=number], input[type=date] { width: 90px; padding: 4px; }
-    button { padding: 6px 10px; }
-    h2 { margin-bottom: 20px; }
-    form { display: inline; }
-  </style>
-
-  <?php
-
 include("../connect.php");
-
-// Xử lý cập nhật giảm giá
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $id = $_POST['idSanPham'];
-  $giam = intval($_POST['giamGia']);
-  $batdau = $_POST['ngayBatDau'];
-  $ketthuc = $_POST['ngayKetThuc'];
-
-  $stmt = $link->prepare("UPDATE sanpham SET giamGia = ?, ngayBatDau = ?, ngayKetThuc = ? WHERE idSanPham = ?");
-  $stmt->bind_param("issi", $giam, $batdau, $ketthuc, $id);
-  $stmt->execute();
-  $stmt->close();
-}
-
 ?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý giảm giá | 5AE WebShop</title>
+
+  <!-- Đường dẫn đúng vì file đang ở layoutmanager -->
+  <link rel="stylesheet" href="../assets/css/manager.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+
 <body>
-  <h2>Quản lý giảm giá sản phẩm</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Tên sản phẩm</th>
-        <th>Giá gốc</th>
-        <th>Giảm (%)</th>
-        <th>Bắt đầu</th>
-        <th>Kết thúc</th>
-        <th>Thao tác</th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      <?php while ($row = $result->fetch_assoc()): ?>
-      <tr>
-        <td><?= htmlspecialchars($row['tenSanPham']) ?></td>
-        <td><?= number_format($row['gia']) ?>₫</td>
-        <form method="POST">
-          <td>
-            <input type="hidden" name="idSanPham" value="<?= $row['idSanPham'] ?>">
-            <input type="number" name="giamGia" value="<?= $row['giamGia'] ?>" min="0" max="100" />
-          </td>
-          <td><input type="date" name="ngayBatDau" value="<?= $row['ngayBatDau'] ?>"></td>
-          <td><input type="date" name="ngayKetThuc" value="<?= $row['ngayKetThuc'] ?>"></td>
-          <td><button type="submit">Cập nhật</button></td>
-        </form>
-      </tr>
-      <?php; ?>
-    </tbody>
-  </table>
+<?php include("include/left-menu.php"); ?>
+
+<div id="main">
+  <?php include("include/navbar.php"); ?>
+  <div id="main-content">
+    <h3><i class="fa-solid fa-tag"></i> Quản lý giảm giá sản phẩm</h3>
+
+    <table id="bangGiamGia">
+      <thead>
+        <tr>
+          <th>Tên sản phẩm</th>
+          <th>Giá gốc</th>
+          <th>Giảm (%)</th>
+          <th>Bắt đầu</th>
+          <th>Kết thúc</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $result = $link->query("SELECT sp.*, d.phantram, d.time_Start, d.time_End 
+                                FROM sanpham sp 
+                                LEFT JOIN discount d ON sp.idSanPham = d.idSanPham");
+        while ($row = $result->fetch_assoc()): ?>
+          <tr>
+            <form method="POST" action="xuly/xulygiamgia.php">
+              <td><?= htmlspecialchars($row['tenSanPham']) ?></td>
+              <td><?= number_format($row['gia']) ?>₫</td>
+              <td>
+                <input type="hidden" name="idSanPham" value="<?= $row['idSanPham'] ?>">
+                <input type="number" name="phantram" value="<?= $row['phantram'] ?? 0 ?>" min="0" max="100" />
+              </td>
+              <td>
+                <input type="datetime-local" name="time_Start"
+                       value="<?= isset($row['time_Start']) ? date('Y-m-d\TH:i', strtotime($row['time_Start'])) : '' ?>">
+              </td>
+              <td>
+                <input type="datetime-local" name="time_End"
+                       value="<?= isset($row['time_End']) ? date('Y-m-d\TH:i', strtotime($row['time_End'])) : '' ?>">
+              </td>
+              <td><button type="submit">Lưu</button></td>
+            </form>
+          </tr>
+        <?php endwhile; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Hiển thị thông báo nếu có -->
+<?php if (isset($_SESSION['thongbao'])): ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    Swal.fire({
+      icon: '<?= $_SESSION['thongbao']['type'] ?>',
+      title: '<?= $_SESSION['thongbao']['title'] ?>',
+      text: '<?= $_SESSION['thongbao']['message'] ?>'
+    });
+  </script>
+  <?php unset($_SESSION['thongbao']); ?>
+<?php endif; ?>
+
 </body>
 </html>
-

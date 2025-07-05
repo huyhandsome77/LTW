@@ -1,180 +1,184 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: "Roboto", sans-serif;
-    background-color: #f0f0f0;
-  }
-  
-  /* Menu trái */
-  #left-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #6c5ce7;
-    color: white;
-    overflow-y: auto;
-    z-index: 999;
-  }
-  #logo {
-    width: 100%;
-    height: 100px;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  #logo img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-  #menu .menu-item {
-    padding: 12px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
-      rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-      rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-    margin: 3px 0;
-  }
-  #menu .menu-item:hover {
-    background-color: #8e7ef1;
-  }
-  .menu-item a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  /* Nội dung chính */
-  #main {
-    margin-left: 250px;
-    padding: 5px 20px;
-  }
-  
-  /* Thanh navbar */
-  #navbar {
-    height: 60px;
-    background-color: #fff;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    padding: 5px 20px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 20;
-  }
-  #navbar #search input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    width: 250px;
-    font-size: 15px;
-  }
-  #navbar #search button {
-    padding: 10px;
-    margin-left: 3px;
-    border: 1px solid rgb(177, 177, 177);
-    color: black;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  #navbar #search button:hover {
-    background-color: #666;
-    color: white;
-  }
-  
-  /* Phần nội dung */
-  #main-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    font-size: 16px;
-  }
-  #main-content h3 {
-    font-size: 22px;
-    color: #6c5ce7;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  #main-content button {
-    background-color: #6c5ce7;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
-  }
-  #main-content button:hover {
-    background-color: #5947d3;
-  }
-  
-  /* Form chung */
-  form {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f8f8ff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-  }
-  form label {
-    font-weight: 500;
-    color: #333;
-  }
-  form input[type="text"],
-  form input[type="number"],
-  form input[type="file"],
-  form input[type="date"],
-  form select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 15px;
-    background-color: #fff;
-  }
-  form button[type="submit"] {
-    background-color: #6c5ce7;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 15px;
-  }
-  form button[type="submit"]:hover {
-    background-color: #4a3dc0;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f0f0;
+}
 
-  
+/* Menu trái */
+#left-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #6c5ce7;
+  color: white;
+  overflow-y: auto;
+  z-index: 999;
+}
+#logo {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+#logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+#menu .menu-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  margin: 3px 0;
+}
+#menu .menu-item:hover {
+  background-color: #8e7ef1;
+}
+.menu-item a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Nội dung chính */
+#main {
+  margin-left: 250px;
+  padding: 5px 20px;
+}
+
+/* Thanh navbar */
+#navbar {
+  height: 60px;
+  background-color: #fff;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 20;
+}
+#navbar #search input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 250px;
+  font-size: 15px;
+}
+#navbar #search button {
+  padding: 10px;
+  margin-left: 3px;
+  border: 1px solid rgb(177, 177, 177);
+  color: black;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#navbar #search button:hover {
+  background-color: #666;
+  color: white;
+}
+
+/* Phần nội dung */
+#main-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-size: 16px;
+}
+#main-content h3 {
+  font-size: 22px;
+  color: #6c5ce7;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#main-content button {
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+#main-content button:hover {
+  background-color: #5947d3;
+}
+
+/* Form chung */
+form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f8ff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+form label {
+  font-weight: 500;
+  color: #333;
+}
+form input[type="text"],
+form input[type="number"],
+form input[type="file"],
+form input[type="date"],
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fff;
+}
+form button[type="submit"] {
+  background-color: #6c5ce7;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+}
+form button[type="submit"]:hover {
+  background-color: #4a3dc0;
+}
   /* Bảng sản phẩm */
 #bangSanPham {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
-#bangSanPham th, td {
-  border: 1px solid #dddddd;
-  padding: 8px;
+#bangSanPham th {
+  background-color: #6c5ce7;
+  color: #fff;
+  padding: 10px;
+  text-transform: uppercase;
+}
+#bangSanPham td {
+  padding: 10px;
+  border: 1px solid #000000;
   text-align: center;
 }
 #bangSanPham img {
@@ -189,14 +193,17 @@
   margin-top: 20px;
 }
 
-#bangDonHang th, #bangDonHang td {
-  border: 1px solid #ccc;
-  padding: 8px;
+#bangDonHang td {
+  padding: 10px;
+  border: 1px solid #000000;
   text-align: center;
 }
 
 #bangDonHang th {
-  background-color: #ffffff;
+  background-color: #6c5ce7;
+  color: #fff;
+  padding: 10px;
+  text-transform: uppercase;
 }
 
 .status-dropdown {
@@ -205,11 +212,40 @@
 }
 
 
+/*bảng giảm giá */
+   #bangGiamGia {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    #bangGiamGia th {
+      background-color: #6c5ce7;
+      color: #fff;
+      padding: 10px;
+      text-transform: uppercase;
+    }
+    #bangGiamGia td {
+      padding: 10px;
+      border: 1px solid #000000;
+      text-align: center;
+    }
 
-
-
-
-  
+  #bangLienHe{
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+  }
+  #bangLienHe th{
+    background-color: #6c5ce7;
+    color: #eee;
+    padding:10px;
+    text-transform: uppercase;
+  }
+  #bangLienHe td{
+    padding: 10px;
+    border:1px solid #000000;
+    text-align: center;
+  }
 
   
   /* Nút trong cột hành động đơn giản */

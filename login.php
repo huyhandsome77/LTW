@@ -79,7 +79,7 @@
         <div class="group-item">
             <label for="password">Password : </label>
             <input type="password" name="password" required>
-        </div>
+        </div>  
         <button type="submit">Đăng nhập</button>
         <p>Bạn chưa có tài khoản ? <a href="signup.php">Đăng Kí</a></p>
         </form>
