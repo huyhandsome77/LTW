@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | 5AE WebShop</title>
+  <title>Signup | 5AE WebShop</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     body {
@@ -37,8 +37,8 @@
       height: auto;
     }
 
-    form h3 {
-      margin: 10px 0;
+    form h2 {
+      margin: 6px 0;
     }
 
     .group-item {
@@ -74,7 +74,7 @@
   <div id="form-signup">
     <form action="layout/xuly/signup_xuly.php" method="post">
       <img src="assets/img/logo1.png" alt="Logo">
-      <h3>Trang Đăng Ký ✍️</h3>
+      <h2>Đăng Kí</h2>
 
       <div class="group-item">
         <label for="username">Username :</label>

@@ -78,8 +78,8 @@ if (isset($_SESSION['user']) || isset($_COOKIE['remember'])) {
         height: auto;
     }
 
-    form h3 {
-        margin: 10px 0;
+    form h2 {
+        margin: 6px 0;
     }
 
     .group-item {
@@ -122,7 +122,7 @@ if (isset($_SESSION['user']) || isset($_COOKIE['remember'])) {
     <div id="form-login">
         <form action="layout/xuly/login_xuly.php" method="post">
         <img src="assets/img/logo1.png" alt="Logo">    
-        <h3>Trang Đăng Nhập ️🛒</h3>
+        <h2>Đăng Nhập</h2>
         <div class="group-item">
             <label for="username">Username : </label>
             <input type="text" name="username" required>
