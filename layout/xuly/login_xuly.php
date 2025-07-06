@@ -45,7 +45,7 @@ if ($row = mysqli_fetch_assoc($result)) {
         }
         switch ($row['role']) {
             case 'Admin':
-                header("Location: ../");
+                header("Location: ../../page/Admin/Admin.php");
                 break;
             case 'Manager':
                 header("Location: ../../layoutmanager/quanlysanpham.php");

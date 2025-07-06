@@ -29,6 +29,9 @@
         <div class="menu-item">
           <a href="lienhe.php"><i class="fa-solid fa-phone"></i> Liên hệ</a>
         </div>
+        <div class="menu-item">
+          <a href="gioithieu.php"><i class="fa-solid fa-phone"></i> Giới thiệu</a>
+        </div>
       </div>
 </div>
     
