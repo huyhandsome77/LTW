@@ -1,6 +1,9 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['user'])) {
+    header("Location: ../../login.php");
+    exit();
+}
 if (isset($_POST['idSanPham'], $_POST['tenSanPham'], $_POST['gia'], $_POST['hinhanh'], $_POST['soluong'])) {
     $id = $_POST['idSanPham'];
     $ten = $_POST['tenSanPham'];

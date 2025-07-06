@@ -226,6 +226,16 @@ session_start();
 </div>
 
 <script>
+  $(document).ready(function () {
+        // Menu toggle
+        $(".submenu").hide();
+        $(".menu1").click(function (e) {
+          e.preventDefault();
+          const submenu = $(this).siblings(".submenu");
+          submenu.slideToggle();
+          $(this).find(".caret-icon").toggleClass("rotate");
+        });
+      });
   const price = parseFloat(document.getElementById('unit-price').value);
   const quantityInput = document.getElementById('quantity');
   const totalDisplay = document.getElementById('total-display');

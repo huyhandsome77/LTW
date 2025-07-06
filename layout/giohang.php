@@ -126,7 +126,7 @@ session_start();
                 <td><?php echo number_format($item['gia'], 0, ',', '.') . 'đ'; ?></td>
                 <td><input type="number" value="<?php echo $item['soluong']; ?>" min="1" readonly /></td>
                 <td><?php echo number_format($thanhTien, 0, ',', '.') . 'đ'; ?></td>
-                <td><button class="delete-btn" onclick="window.location.href='xoa_giohang.php?id=<?php echo $item['id']; ?>'">Xoá</button></td>
+                <td><button class="delete-btn" onclick="window.location.href='xuly/xoa_giohang.php?id=<?php echo $item['id']; ?>'">Xoá</button></td>
               </tr>
             <?php 
                 endforeach;

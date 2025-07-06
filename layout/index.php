@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,7 +15,6 @@ session_start();
       rel="stylesheet"
     />
     <style>
-
       /* Suggestions styles */
       .suggestions {
         display: flex;
@@ -67,6 +64,31 @@ session_start();
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
       }
+      /* Slider styles */
+      .slider {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        margin: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      .slider-track {
+        display: flex;
+        height: 100%;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slider-item {
+        flex: 0 0 100%;
+        height: 100%;
+      }
+      .slider-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
       @media (max-width: 768px) {
         #left-menu {
           position: relative;
@@ -93,11 +115,17 @@ session_start();
           flex: 0 0 calc((100% / 3) - 10.66px);
           min-width: 150px;
         }
+        .slider {
+          height: 150px;
+        }
       }
       @media (max-width: 480px) {
         .suggestion-item {
           flex: 0 0 calc((100% / 2) - 8px);
           min-width: 150px;
+        }
+        .slider {
+          height: 120px;
         }
       }
       .banner-row {
@@ -106,11 +134,9 @@ session_start();
         margin: 30px 10px;
         flex-wrap: wrap;
       }
-
       .banner-col {
         flex: 1 1 45%;
       }
-
       .banner-card img {
         width: 100%;
         height: auto;
@@ -123,6 +149,7 @@ session_start();
   </head>
   <body>
     <?php 
+    session_start();
     include("../connect.php");
     include("include/left-menu.php");
     ?>
@@ -199,12 +226,34 @@ session_start();
             </div>
           </div>
         </div>
+        <div class="slider">
+          <div class="slider-track">
+            <div class="slider-item">
+              <img src="../assets/img/goiychoban/gy1.webp" alt="Slider Image 1" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/goiychoban/gy2.webp" alt="Slider Image 2" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/goiychoban/gy3.webp" alt="Slider Image 3" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/goiychoban/gy4.webp" alt="Slider Image 4" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/goiychoban/gy5.webp" alt="Slider Image 5" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/goiychoban/gy6.webp" alt="Slider Image 6" />
+            </div>
+          </div>
+        </div>
       </div>
       <?php include("include/footer.php"); ?>
     </div>
     <script>
-      
       $(document).ready(function () {
+        // Menu toggle
         $(".submenu").hide();
         $(".menu1").click(function (e) {
           e.preventDefault();
@@ -212,6 +261,24 @@ session_start();
           submenu.slideToggle();
           $(this).find(".caret-icon").toggleClass("rotate");
         });
+
+        // Slider functionality
+        let currentIndex = 0;
+        const slides = $(".slider-item");
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+          const offset = -index * 100;
+          $(".slider-track").css("transform", `translateX(${offset}%)`);
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          showSlide(currentIndex);
+        }
+
+        // Auto slide every 1 second
+        setInterval(nextSlide, 3000);
       });
     </script>
   </body>

@@ -76,7 +76,7 @@ session_start();
       font-size: 1rem;
     }
     .btn {
-      background-color: var(--left-menu-color);
+      background-color: #6c5ce7;
       color: white;
       font-weight: 600;
       border: none;
@@ -107,7 +107,7 @@ session_start();
     }
     h3 {
       font-weight: 600;
-      color: var(--left-menu-color);
+      color: #6c5ce7;
       margin-bottom: 16px;
       font-size: 1.125rem;
     }
@@ -136,7 +136,7 @@ session_start();
       box-shadow: 0 0 0 2px rgb(59 130 246 / 0.5);
     }
     button[type="submit"] {
-      background-color: var(--left-menu-color);
+      background-color: #6c5ce7;
       color: white;
       font-weight: 600;
       border: none;
@@ -182,7 +182,7 @@ session_start();
     .popup-content h3 {
       font-size: 1.25rem;
       text-align: center;
-      color: var(--left-menu-color);
+      color: #6c5ce7;
     }
 
     .popup-content input[type="text"],
@@ -210,7 +210,7 @@ session_start();
     }
 
     .popup-buttons button[type="submit"] {
-      background-color: var(--left-menu-color);
+      background-color: #6c5ce7;
       color: white;
     }
 

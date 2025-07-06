@@ -1,14 +1,35 @@
 <?php
+session_start();
 include('../../connect.php'); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = intval($_POST['id']);
 
+    $query = $link->prepare("DELETE FROM sanpham WHERE idSanPham = ?");
+    $query->bind_param("i", $id);
 
-    $link->query("DELETE FROM sanpham WHERE idSanPham = $id");
-    echo "Xóa thành công";
+    if ($query->execute()) {
+        $_SESSION['thongbao'] = [
+            'type' => 'success',
+            'title' => 'Xóa thành công',
+            'message' => 'Đã xóa sản phẩm thành công.'
+        ];
+    } else {
+        $_SESSION['thongbao'] = [
+            'type' => 'error',
+            'title' => 'Lỗi xóa',
+            'message' => 'Lỗi khi xóa sản phẩm: ' . $query->error
+        ];
+    }
+
+    $query->close();
 } else {
-    echo "Lỗi xóa sản phẩm.";
+    $_SESSION['thongbao'] = [
+        'type' => 'error',
+        'title' => 'Yêu cầu không hợp lệ',
+        'message' => 'Không nhận được ID sản phẩm hợp lệ.'
+    ];
 }
-header("location:../quanlysanpham.php");
-?>
+
+header("Location: ../quanlysanpham.php");
+exit;

@@ -1,38 +1,46 @@
 <?php
-include('../../connect.php'); // kết nối CSDL, đảm bảo biến $link tồn tại
+session_start(); // ⚠️ Bắt buộc
+include('../../connect.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['id'] ?? 0);
     $ten = trim($_POST['tenSanPham'] ?? '');
     $gia = floatval($_POST['giaTien'] ?? 0);
+    $loaiSanPham = $_POST['loaiSanPham'] ?? '';
     $newImagePath = null;
 
-    // Kiểm tra dữ liệu đầu vào
-    if ($id <= 0 || $ten === '' || $gia <= 0) {
-        die("Dữ liệu không hợp lệ.");
+    // Kiểm tra dữ liệu
+    if ($id <= 0 || $ten === '' || $gia <= 0 || $loaiSanPham === '') {
+        $_SESSION['thongbao'] = [
+            'type' => 'error',
+            'title' => 'Lỗi dữ liệu',
+            'message' => 'Dữ liệu không hợp lệ.'
+        ];
+        header("Location: ../quanlysanpham.php");
+        exit;
     }
 
-    // Nếu có ảnh mới được chọn
+    // Nếu có ảnh mới
     if (isset($_FILES['hinhAnh']) && $_FILES['hinhAnh']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../../assets/img/uploads/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
 
-        // Xóa ảnh cũ nếu có
+        // Xóa ảnh cũ
         $oldImageQuery = $link->prepare("SELECT hinhanh FROM sanpham WHERE idSanPham = ?");
         $oldImageQuery->bind_param("i", $id);
         $oldImageQuery->execute();
         $result = $oldImageQuery->get_result();
         if ($row = $result->fetch_assoc()) {
-            $oldPath = "../../assets/img/uploads" . $row['hinhanh'];
+            $oldPath = '../../' . $row['hinhanh'];
             if (file_exists($oldPath)) {
                 unlink($oldPath);
             }
         }
         $oldImageQuery->close();
 
-        // Xử lý lưu ảnh mới
+        // Lưu ảnh mới
         $tmp = $_FILES['hinhAnh']['tmp_name'];
         $filename = time() . '_' . preg_replace('/\s+/', '_', basename($_FILES['hinhAnh']['name']));
         $target = $uploadDir . $filename;
@@ -40,28 +48,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (move_uploaded_file($tmp, $target)) {
             $newImagePath = 'assets/img/uploads/' . $filename;
         } else {
-            die("Không thể lưu ảnh mới.");
+            $_SESSION['thongbao'] = [
+                'type' => 'error',
+                'title' => 'Lỗi ảnh',
+                'message' => 'Không thể lưu ảnh mới.'
+            ];
+            header("Location: ../quanlysanpham.php");
+            exit;
         }
     }
 
-    // Cập nhật vào database
+    // Cập nhật DB
     if ($newImagePath !== null) {
-        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=?, hinhanh=? WHERE idSanPham=?");
-        $stmt->bind_param("sdsi", $ten, $gia, $newImagePath, $id);
+        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=?, hinhanh=?, loaiSanPham=? WHERE idSanPham=?");
+        $stmt->bind_param("sdssi", $ten, $gia, $newImagePath, $loaiSanPham, $id);
     } else {
-        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=? WHERE idSanPham=?");
-        $stmt->bind_param("sdi", $ten, $gia, $id);
+        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=?, loaiSanPham=? WHERE idSanPham=?");
+        $stmt->bind_param("sdsi", $ten, $gia, $loaiSanPham, $id);
     }
 
     if ($stmt->execute()) {
-        echo "<script>alert('Cập nhật sản phẩm thành công!'); window.location.href='../quanlysanpham.php';</script>";
+        $_SESSION['thongbao'] = [
+            'type' => 'success',
+            'title' => 'Thành công',
+            'message' => 'Đã cập nhật sản phẩm thành công.'
+        ];
     } else {
-        echo "Lỗi cập nhật: " . $link->error;
+        $_SESSION['thongbao'] = [
+            'type' => 'error',
+            'title' => 'Lỗi cập nhật',
+            'message' => 'Lỗi khi cập nhật: ' . $link->error
+        ];
     }
 
     $stmt->close();
+    header("Location: ../quanlysanpham.php");
+    exit;
 } else {
-    echo "Yêu cầu không hợp lệ.";
+    $_SESSION['thongbao'] = [
+        'type' => 'error',
+        'title' => 'Lỗi yêu cầu',
+        'message' => 'Yêu cầu không hợp lệ.'
+    ];
+    header("Location: ../quanlysanpham.php");
+    exit;
 }
-header("location:../quanlysanpham.php");
 ?>
