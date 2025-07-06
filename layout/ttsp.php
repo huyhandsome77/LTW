@@ -101,7 +101,7 @@ session_start();
     .btn-submit {
       margin-top: 20px;
       padding: 12px 24px;
-      background-color: #007bff;
+      background-color: var(--left-menu-color);
       border: none;
       color: #fff;
       font-size: 1rem;
@@ -117,7 +117,7 @@ session_start();
     .back-link {
       display: inline-block;
       margin-bottom: 25px;
-      color: #007bff;
+      color: var(--left-menu-color);
       text-decoration: none;
       font-size: 0.95rem;
     }
@@ -202,6 +202,11 @@ session_start();
       <form method="post" action="xuly/them_giohang.php">
         <input type="hidden" name="idSanPham" value="<?php echo $sp['idSanPham']; ?>">
         <input type="hidden" name="tenSanPham" value="<?php echo htmlspecialchars($sp['tenSanPham']); ?>">
+        <?php if (!is_null($sp['tonKho'])): ?>
+          <p style="margin-bottom: 10px; color: #555;">
+            <strong>Tồn kho:</strong> <?php echo $sp['tonKho']; ?> sản phẩm
+          </p>
+        <?php endif; ?>
         <input type="hidden" name="gia" id="unit-price" value="<?php echo $giaSauGiam; ?>">
         <input type="hidden" name="hinhanh" value="<?php echo htmlspecialchars($sp['hinhanh']); ?>">
 

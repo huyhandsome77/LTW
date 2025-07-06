@@ -25,7 +25,7 @@
       .contact-form {
           font-family: 'Arial', sans-serif; 
           background: white;
-          padding: 60px 60px;
+          padding: 50px 60px;
           border-radius: 12px;
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
           width: 550px;
@@ -89,11 +89,11 @@
       .div-info {
           font-family: 'Arial', sans-serif; 
           background: white;
-          padding: 60px 60px;
+          padding: 50px 60px;
           border-radius: 12px;
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
           width: 550px;
-          height: 626.2px;
+          height: 588.6px;
       }
       .div-info h3{
         text-align : center;
@@ -155,7 +155,7 @@
 
           <div class="form-group">
             <label for="noiDung">Nội dung</label>
-            <textarea id="noiDung" name="noiDung" rows="4" required></textarea>
+            <textarea id="noiDung" name="noiDung" rows="3" required></textarea>
           </div>
 
           <button type="submit">Gửi liên hệ</button>

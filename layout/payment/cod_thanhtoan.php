@@ -17,12 +17,26 @@ mysqli_stmt_bind_param($stmt, "is", $idUser, $ngayDat);
 mysqli_stmt_execute($stmt);
 $idDonHang = mysqli_insert_id($link);
 
-// Lưu chi tiết đơn hàng
+// Lưu chi tiết đơn hàng và cập nhật tồn kho
 $sql_ct = "INSERT INTO chitietdonhang (idDonHang, idSanPham, soLuong, giaMua) VALUES (?, ?, ?, ?)";
 $stmt_ct = mysqli_prepare($link, $sql_ct);
+
+// Chuẩn bị câu lệnh cập nhật tồn kho
+$sql_update_tonkho = "UPDATE sanpham SET tonKho = tonKho - ? WHERE idSanPham = ?";
+$stmt_update = mysqli_prepare($link, $sql_update_tonkho);
+
 foreach ($_SESSION['cart'] as $item) {
-    mysqli_stmt_bind_param($stmt_ct, "iiid", $idDonHang, $item['id'], $item['soluong'], $item['gia']);
+    $idSP = $item['id'];
+    $soLuong = $item['soluong'];
+    $giaMua = $item['gia'];
+
+    // Lưu chi tiết đơn hàng
+    mysqli_stmt_bind_param($stmt_ct, "iiid", $idDonHang, $idSP, $soLuong, $giaMua);
     mysqli_stmt_execute($stmt_ct);
+
+    // Giảm tồn kho
+    mysqli_stmt_bind_param($stmt_update, "ii", $soLuong, $idSP);
+    mysqli_stmt_execute($stmt_update);
 }
 
 // Xóa giỏ hàng

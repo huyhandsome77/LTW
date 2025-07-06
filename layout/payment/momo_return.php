@@ -4,7 +4,6 @@ include("../../connect.php");
 
 // Kiểm tra thanh toán thành công
 if (isset($_GET['resultCode']) && $_GET['resultCode'] == '0') {
-    // Kiểm tra session hợp lệ
     if (!isset($_SESSION['user']) || empty($_SESSION['cart'])) {
         $_SESSION['thongbao'] = [
             'type' => 'error',
@@ -25,13 +24,26 @@ if (isset($_GET['resultCode']) && $_GET['resultCode'] == '0') {
     mysqli_stmt_execute($stmt);
     $idDonHang = mysqli_insert_id($link);
 
-    // Lưu chi tiết
+    // Lưu chi tiết đơn hàng
     $sql_ct = "INSERT INTO chitietdonhang (idDonHang, idSanPham, soLuong, giaMua) VALUES (?, ?, ?, ?)";
     $stmt_ct = mysqli_prepare($link, $sql_ct);
 
+    // Chuẩn bị truy vấn cập nhật tồn kho
+    $sql_update_tonkho = "UPDATE sanpham SET tonKho = tonKho - ? WHERE idSanPham = ?";
+    $stmt_update = mysqli_prepare($link, $sql_update_tonkho);
+
     foreach ($_SESSION['cart'] as $item) {
-        mysqli_stmt_bind_param($stmt_ct, "iiid", $idDonHang, $item['id'], $item['soluong'], $item['gia']);
+        $idSP = $item['id'];
+        $soLuong = $item['soluong'];
+        $giaMua = $item['gia'];
+
+        // Lưu chi tiết đơn hàng
+        mysqli_stmt_bind_param($stmt_ct, "iiid", $idDonHang, $idSP, $soLuong, $giaMua);
         mysqli_stmt_execute($stmt_ct);
+
+        // Cập nhật tồn kho
+        mysqli_stmt_bind_param($stmt_update, "ii", $soLuong, $idSP);
+        mysqli_stmt_execute($stmt_update);
     }
 
     // Xóa giỏ hàng

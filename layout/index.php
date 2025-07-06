@@ -68,7 +68,7 @@
       .slider {
         position: relative;
         width: 100%;
-        height: 200px;
+        height: 100%;
         overflow: hidden;
         margin: 20px 0;
         border-radius: 10px;
@@ -85,7 +85,7 @@
       }
       .slider-item img {
         width: 100%;
-        height: 100%;
+        height: auto;
         object-fit: cover;
         display: block;
       }
@@ -157,6 +157,31 @@
       <?php include("include/navbar.php"); 
       ?>
       <div id="main-content">
+        <!-- Slider -->
+      <div class="slider">
+          <div class="slider-track">
+            <div class="slider-item">
+              <img src="../assets/img/slider/slider1.jpg" alt="Slider Image 1" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/slider/slider2.jpeg" alt="Slider Image 2" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/slider/slider3.jpg" alt="Slider Image 3" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/slider/slider4.jpg" alt="Slider Image 4" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/slider/slider5.jpg" alt="Slider Image 5" />
+            </div>
+            <div class="slider-item">
+              <img src="../assets/img/slider/slider6.jpg" alt="Slider Image 6" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner 2 -->
         <div class="banner-row">
           <div class="banner-col">
             <div class="banner-card">
@@ -169,6 +194,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Gợi ý cho bạn -->
         <h4>Gợi ý cho bạn</h4>
         <div class="suggestions">
           <div class="suggestion-item">
@@ -226,28 +253,7 @@
             </div>
           </div>
         </div>
-        <div class="slider">
-          <div class="slider-track">
-            <div class="slider-item">
-              <img src="../assets/img/goiychoban/gy1.webp" alt="Slider Image 1" />
-            </div>
-            <div class="slider-item">
-              <img src="../assets/img/goiychoban/gy2.webp" alt="Slider Image 2" />
-            </div>
-            <div class="slider-item">
-              <img src="../assets/img/goiychoban/gy3.webp" alt="Slider Image 3" />
-            </div>
-            <div class="slider-item">
-              <img src="../assets/img/goiychoban/gy4.webp" alt="Slider Image 4" />
-            </div>
-            <div class="slider-item">
-              <img src="../assets/img/goiychoban/gy5.webp" alt="Slider Image 5" />
-            </div>
-            <div class="slider-item">
-              <img src="../assets/img/goiychoban/gy6.webp" alt="Slider Image 6" />
-            </div>
-          </div>
-        </div>
+        
       </div>
       <?php include("include/footer.php"); ?>
     </div>
@@ -262,7 +268,7 @@
           $(this).find(".caret-icon").toggleClass("rotate");
         });
 
-        // Slider functionality
+        // Slider
         let currentIndex = 0;
         const slides = $(".slider-item");
         const totalSlides = slides.length;
