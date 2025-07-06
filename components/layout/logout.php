@@ -3,6 +3,6 @@
        $_SESSION = [];
         session_unset();
         session_destroy();
-        header("/ltw/components/layout/login.php");
+        header("location: /ltw/components/layout/login.php");
         exit;
         ?>
