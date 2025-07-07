@@ -105,7 +105,7 @@
 </style>
 </head>
 <?php
-require_once __DIR__ . '/../../config/connectdb.php';
+require_once __DIR__ . '/../../connect.php';
 $sql = "SELECT * FROM sanpham ORDER BY idSanPham DESC";
 $result = mysqli_query($link, $sql);
 ob_start();
@@ -139,7 +139,7 @@ ob_start();
         <?php $index = 1; while ($row = mysqli_fetch_assoc($result)): ?>
           <tr data-category-id="<?= htmlspecialchars($row['loaiSanPham']) ?>">
             <td><?= $index++ ?></td>
-            <td><img src="/ltw/<?= htmlspecialchars($row['hinhanh']) ?>" class="table-img" width="60" onerror="this.src='https://via.placeholder.com/60';"></td>
+            <td><img src="../../<?= htmlspecialchars($row['hinhanh']) ?>" class="table-img" width="60" onerror="this.src='https://via.placeholder.com/60';"></td>
             <td><?= htmlspecialchars($row['tenSanPham']) ?></td>
             <td><?= number_format($row['gia'], 0, ',', '.') ?>₫</td>
             <td><?= htmlspecialchars($row['loaiSanPham']) ?></td>

@@ -111,7 +111,7 @@
   </style>
 </head>
 <?php
-require_once __DIR__ . '/../../config/connectdb.php';
+require_once __DIR__ . '/../../connect.php';
 $result = mysqli_query($link, "SELECT * FROM user ORDER BY idUser DESC");
 ob_start();
 ?>

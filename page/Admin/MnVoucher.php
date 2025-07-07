@@ -71,7 +71,7 @@
   </style>
 </head>
 <?php
-require_once __DIR__ . '/../../config/connectdb.php';
+require_once __DIR__ . '/../../connect.php';
 $result = mysqli_query($link, "SELECT * FROM DiscountCode ORDER BY id DESC");
 ob_start();
 ?>
@@ -142,12 +142,18 @@ ob_start();
         <input type="number" name="min_order_value" placeholder="Đơn tối thiểu" required>
         <input type="date" name="start_date" required>
         <input type="date" name="end_date" required>
+        <input type="number" name="usage_limit" placeholder="Số lượt sử dụng" required>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px;">
+            <input type="checkbox" name="per_user_limit" value="1" style="margin: 0; width: auto; height: auto;">
+            Chỉ sử dụng 1 lần
+          </label>
+        </div>
+        
         <button type="submit">Lưu</button>
       </form>
     </div>
   </div>
-
-
   <div class="modal" id="editModal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeEditModal()">×</span>
@@ -164,6 +170,13 @@ ob_start();
         <input type="number" name="min_order_value" id="edit_min_order" required>
         <input type="date" name="start_date" id="edit_start" required>
         <input type="date" name="end_date" id="edit_end" required>
+        <input type="number" name="usage_limit" placeholder="Số lượt sử dụng" required>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px;">
+            <input type="checkbox" name="per_user_limit" value="1" style="margin: 0; width: auto; height: auto;">
+            Chỉ sử dụng 1 lần
+          </label>
+        </div>
         <button type="submit">Cập nhật</button>
       </form>
     </div>
@@ -192,7 +205,7 @@ ob_start();
     function closeEditModal() {
       document.getElementById('editModal').style.display = 'none';
     }
-   
+
     $('#searchInput').on('input', function() {
       const keyword = $(this).val().toLowerCase();
       $('#discountTableBody tr').each(function() {

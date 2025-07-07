@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../config/connectdb.php';
+require_once __DIR__ . '/../../../connect.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
   $action = $_POST['action'];
   $fullName = $_POST['fullName'] ?? '';

@@ -22,14 +22,21 @@
 </head>
 <body>
   <?php
-require_once "../../config/connectdb.php";
+require_once "../../connect.php";
 ob_start();
 
 $today = date('Y-m-d');
 $sp = mysqli_query($link, "SELECT COUNT(*) AS total FROM sanpham");
 $dhToday = mysqli_query($link, "SELECT COUNT(*) AS total FROM donhang WHERE DATE(ngayDat) = '$today'");
 $khToday = mysqli_query($link, "SELECT COUNT(*) AS total FROM user WHERE DATE(created_at) = '$today'");
-$revenueToday = mysqli_query($link, "SELECT SUM(total_price) AS total FROM donhang WHERE DATE(ngayDat) = '$today' AND trangthai = 'Giao hàng thành công'");
+$revenueToday = mysqli_query($link, "
+  SELECT SUM(ct.giaMua * ct.soLuong) AS total
+  FROM donhang dh
+  JOIN chitietdonhang ct ON dh.idDonHang = ct.idDonHang
+  WHERE DATE(dh.ngayDat) = '$today'
+    AND dh.trangThai = 'Giao hàng thành công'
+");
+
 
 $totalSP = mysqli_fetch_assoc($sp)['total'];
 $totalDH = mysqli_fetch_assoc($dhToday)['total'];
@@ -41,28 +48,54 @@ $topProducts = mysqli_query($link, "
   FROM chitietdonhang ct
   JOIN sanpham sp ON ct.idSanPham = sp.idSanPham
   JOIN donhang dh ON ct.idDonHang = dh.idDonHang
-  WHERE dh.trangthai = 'Giao hàng thành công'
+  WHERE dh.trangThai = 'Giao hàng thành công'
   GROUP BY sp.tenSanPham
   ORDER BY luotban DESC
   LIMIT 5
 ");
 
-$labels = []; $data = [];
+$labels = []; 
+$data = [];
+
 for ($i = 6; $i >= 0; $i--) {
   $d = date('Y-m-d', strtotime("-$i days"));
   $labels[] = date('d/m', strtotime($d));
-  $res = mysqli_query($link, "SELECT SUM(total_price) AS total FROM donhang WHERE DATE(ngayDat) = '$d' AND trangthai = 'Giao hàng thành công'");
+
+  $query = "
+    SELECT SUM(ct.giaMua * ct.soLuong) AS total
+    FROM donhang dh
+    JOIN chitietdonhang ct ON dh.idDonHang = ct.idDonHang
+    WHERE DATE(dh.ngayDat) = '$d'
+      AND dh.trangThai = 'Giao hàng thành công'
+  ";
+
+  $res = mysqli_query($link, $query);
+  if (!$res) {
+    error_log("Lỗi SQL: " . mysqli_error($link));
+    $data[] = 0;
+    continue;
+  }
+
   $row = mysqli_fetch_assoc($res);
-  $data[] = $row['total'] ?? 0;
+  $data[] = (int)($row['total'] ?? 0);
 }
 
+
 $recentOrders = mysqli_query($link, "
-  SELECT dh.idDonHang, u.fullName, dh.ngayDat, dh.total_price, dh.trangthai
+  SELECT 
+    dh.idDonHang, 
+    u.fullName, 
+    dh.ngayDat, 
+    SUM(ct.giaMua * ct.soLuong) - dh.discount_value AS total_price,
+    dh.trangThai
   FROM donhang dh
   JOIN user u ON dh.idUser = u.idUser
+  JOIN chitietdonhang ct ON dh.idDonHang = ct.idDonHang
+  GROUP BY dh.idDonHang
   ORDER BY dh.ngayDat DESC
   LIMIT 3
 ");
+
 ?>
 
 <div class="admin-dashboard">
@@ -136,7 +169,7 @@ $recentOrders = mysqli_query($link, "
               <td><?= $row['fullName'] ?></td>
               <td><?= date('d/m/Y', strtotime($row['ngayDat'])) ?></td>
               <td><?= number_format($row['total_price'], 0, ',', '.') ?>₫</td>
-              <td><span class="badge <?= getStatusClass($row['trangthai']) ?>"><?= $row['trangthai'] ?></span></td>
+              <td><span class="badge <?= getStatusClass($row['trangThai']) ?>"><?= $row['trangThai'] ?></span></td>
             </tr>
           <?php } ?>
         </tbody>

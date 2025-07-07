@@ -1,12 +1,12 @@
 /* Phần nội dung */
-.lienhe {
+#main-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   font-size: 16px;
 }
-.lienhe h3 {
+#main-content h3 {
   font-size: 22px;
   color: var(--left-menu-color);
   margin-bottom: 15px;
@@ -14,7 +14,7 @@
   align-items: center;
   gap: 10px;
 }
-.lienhe button {
+#main-content button {
   background-color: var(--left-menu-color);
   color: white;
   border: none;
@@ -26,7 +26,7 @@
   margin-bottom: 10px;
   transition: background-color 0.3s ease;
 }
-.lienhe button:hover {
+#main-content button:hover {
   background-color: #5947d3;
 }
 

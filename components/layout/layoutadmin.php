@@ -2,8 +2,8 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
-if (!isset($_SESSION['username'])) {
-  header("Location: /ltw/components/layout/login.php");
+if (!isset($_SESSION['user'])) {
+  header("Location: ../../login.php");
   exit;
 }
 require_once __DIR__ . '/../../page/Admin/Controller/LoadNoti.php';
@@ -16,12 +16,34 @@ require_once __DIR__ . '/../../page/Admin/Controller/LoadNoti.php';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Page</title>
-  <link rel="stylesheet" href="/ltw/assets/css/admin/admin.css">
+  <link rel="stylesheet" href="../../assets/css/admin/admin.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
   <script src="../../assets/js/jquery-3.7.1.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
     rel="stylesheet" />
+    <style>
+  .menu-item {
+    position: relative;
+  }
+
+  .menu-item .badge {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    font-size: 11px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 20px;
+    text-align: center;
+  }
+</style>
+
 </head>
 
 <body>
@@ -44,11 +66,6 @@ require_once __DIR__ . '/../../page/Admin/Controller/LoadNoti.php';
           <?php endif; ?>
         </a>
       </div>
-      <?php if ($_SESSION['role'] === 'Admin'): ?>
-        <div class="menu-item">
-          <a href="MnAccount.php"><i class="fa-solid fa-user-shield"></i> Quản lý Tài khoản</a>
-        </div>
-      <?php endif; ?>
       <div class="menu-item">
         <a href="MnCustomer.php">
           <i class="fa-solid fa-users"></i> Quản lý Khách hàng
@@ -144,7 +161,7 @@ require_once __DIR__ . '/../../page/Admin/Controller/LoadNoti.php';
       });
       $("#logout-btn").on("click", function(e) {
         e.preventDefault();
-        window.location.href = "/ltw/components/layout/logout.php";
+        window.location.href = "/ltw/layout/xuly/logout_xuly.php";
       });
 
     });

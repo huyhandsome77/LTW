@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../config/connectdb.php';
+require_once __DIR__ . '/../../../connect.php';
 
 $action = $_REQUEST['action'] ?? '';
 

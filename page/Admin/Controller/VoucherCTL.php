@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../config/connectdb.php';
+require_once __DIR__ . '/../../../connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -11,21 +11,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start = $_POST['start_date'] ?? null;
     $end = $_POST['end_date'] ?? null;
 
+    // ✅ Lấy thêm các trường mới
+    $usage_limit = isset($_POST['usage_limit']) && $_POST['usage_limit'] !== '' ? (int)$_POST['usage_limit'] : null;
+    $per_user_limit = isset($_POST['per_user_limit']) ? 1 : 0;
+
     if (!in_array($discount_type, ['percent', 'number'])) {
         $discount_type = 'number';
     }
 
     if ($action === 'add') {
-        $sql = "INSERT INTO DiscountCode (code, discount_type, discount_value, min_order_value, start_date, end_date)
-            VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO DiscountCode (code, discount_type, discount_value, min_order_value, start_date, end_date, usage_limit, per_user_limit)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, "ssddss", $code, $discount_type, $discount_value, $min_order, $start, $end);
+        mysqli_stmt_bind_param($stmt, "ssddssii", $code, $discount_type, $discount_value, $min_order, $start, $end, $usage_limit, $per_user_limit);
         mysqli_stmt_execute($stmt);
     } elseif ($action === 'edit' && $id) {
-        $sql = "UPDATE DiscountCode SET code = ?, discount_type = ?, discount_value = ?, min_order_value = ?, start_date = ?, end_date = ?
-            WHERE id = ?";
+        $sql = "UPDATE DiscountCode 
+                SET code = ?, discount_type = ?, discount_value = ?, min_order_value = ?, start_date = ?, end_date = ?, usage_limit = ?, per_user_limit = ?
+                WHERE id = ?";
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, "ssddssi", $code, $discount_type, $discount_value, $min_order, $start, $end, $id);
+        mysqli_stmt_bind_param($stmt, "ssddssiii", $code, $discount_type, $discount_value, $min_order, $start, $end, $usage_limit, $per_user_limit, $id);
         mysqli_stmt_execute($stmt);
     }
 

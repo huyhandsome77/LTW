@@ -19,7 +19,7 @@ session_start();
   </head>
   <body>
     <?php
-require_once __DIR__ . '/../../config/connectdb.php';
+require_once __DIR__ . '/../../connect.php';
 ob_start();
 ?>
     <div class="lienhe">
