@@ -7,6 +7,7 @@ if ($action === 'add' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $tenSanPham = $_POST['tenSanPham'] ?? '';
     $loaiSanPham = $_POST['loaiSanPham'] ?? '';
     $gia = $_POST['gia'] ?? 0;
+    $tonKho = $_POST['tonKho'];
     $hinhanh = '';
     if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = __DIR__ . '/../../../assets/img/upload/DoAn/';
@@ -22,10 +23,9 @@ if ($action === 'add' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $hinhanh = 'assets/img/upload/DoAn/' . $filename;
         }
     }
-
-    $stmt = mysqli_prepare($link, "INSERT INTO sanpham (tenSanPham, loaiSanPham, gia, hinhanh) VALUES (?, ?, ?, ?)");
+    $stmt = mysqli_prepare($link, "INSERT INTO sanpham (tenSanPham, loaiSanPham, gia, tonKho, hinhanh) VALUES (?, ?, ?, ?, ?)");
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, 'ssds', $tenSanPham, $loaiSanPham, $gia, $hinhanh);
+        mysqli_stmt_bind_param($stmt, 'ssdss', $tenSanPham, $loaiSanPham, $gia, $tonKho, $hinhanh);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }
@@ -39,6 +39,7 @@ if ($action === 'edit' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $tenSanPham = $_POST['tenSanPham'] ?? '';
     $loaiSanPham = $_POST['loaiSanPham'] ?? '';
     $gia = $_POST['gia'] ?? 0;
+    $tonKho = $_POST['tonKho'] ?? 0;
     $hinhanh = '';
 
     if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
@@ -56,18 +57,19 @@ if ($action === 'edit' && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     if (!empty($hinhanh)) {
-        $sql = "UPDATE sanpham SET tenSanPham=?, loaiSanPham=?, gia=?, hinhanh=? WHERE idSanPham=?";
+        $sql = "UPDATE sanpham SET tenSanPham=?, loaiSanPham=?, gia=?, tonKho=?, hinhanh=? WHERE idSanPham=?";
+
         $stmt = mysqli_prepare($link, $sql);
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, 'ssdsi', $tenSanPham, $loaiSanPham, $gia, $hinhanh, $idSanPham);
+            mysqli_stmt_bind_param($stmt, 'ssdsii', $tenSanPham, $loaiSanPham, $gia, $tonKho, $hinhanh, $idSanPham);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         }
     } else {
-        $sql = "UPDATE sanpham SET tenSanPham=?, loaiSanPham=?, gia=? WHERE idSanPham=?";
+        $sql = "UPDATE sanpham SET tenSanPham=?, loaiSanPham=?, gia=?, tonKho=? WHERE idSanPham=?";
         $stmt = mysqli_prepare($link, $sql);
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, 'ssdi', $tenSanPham, $loaiSanPham, $gia, $idSanPham);
+            mysqli_stmt_bind_param($stmt, 'ssdii', $tenSanPham, $loaiSanPham, $gia, $tonKho, $idSanPham);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         }
@@ -91,6 +93,6 @@ if ($action === 'delete' && isset($_GET['id'])) {
 }
 if (isset($_GET['status']) && isset($_GET['msg'])) {
     echo "<script>window.addEventListener('DOMContentLoaded', () => {
-      showToast('".htmlspecialchars($_GET['msg'])."', '".($_GET['status'] !== 'success' ? 'true' : 'false')."');
+      showToast('" . htmlspecialchars($_GET['msg']) . "', '" . ($_GET['status'] !== 'success' ? 'true' : 'false') . "');
     });</script>";
 }

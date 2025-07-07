@@ -1,5 +1,15 @@
 <?php
 session_start();
+if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role'], ['Admin', 'Manager'])) {
+  $_SESSION['thongbao'] = [
+      'type' => 'error',
+      'title' => 'Truy cập bị từ chối',
+      'message' => 'Bạn không có quyền truy cập vào trang này.'
+  ];
+  header("Location: ../login.php");
+  exit();
+}
+?>
 ?>
 <html lang="en">
   <head>
@@ -55,7 +65,7 @@ session_start();
                 echo "<td>" . htmlspecialchars($row['noiDung']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['status']) . "</td>";
                 echo "<td>";
-                if ($row['status'] === 'Chưa Xử Lí') {
+                if ($row['status'] === 'Chưa xử lí') {
                   echo "<form method='post' action='xuly/xulylienhe.php'>
                           <input type='hidden' name='id' value='{$row['idLienHe']}'>
                           <button type='submit'>Đánh dấu đã xử lý</button>

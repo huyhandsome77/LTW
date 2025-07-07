@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,6 +131,7 @@ ob_start();
           <th>Tên sản phẩm</th>
           <th>Giá bán</th>
           <th>Danh mục</th>
+           <th>Tồn kho</th>
           <th>Hành động</th>
         </tr>
       </thead>
@@ -143,6 +143,7 @@ ob_start();
             <td><?= htmlspecialchars($row['tenSanPham']) ?></td>
             <td><?= number_format($row['gia'], 0, ',', '.') ?>₫</td>
             <td><?= htmlspecialchars($row['loaiSanPham']) ?></td>
+            <td><?= (int)$row['tonKho'] ?></td>
             <td class="action-buttons">
               <button class="btn-sm btn-warning" onclick="openEditModal(<?= htmlspecialchars(json_encode($row)) ?>)">Sửa</button>
               <button class="btn-sm btn-danger" onclick="confirmDelete(<?= $row['idSanPham'] ?>)">Xoá</button>
@@ -164,6 +165,7 @@ ob_start();
       </select><br>
       <input type="number" name="gia" placeholder="Giá" required><br>
       <input type="file" name="hinhanh"><br>
+      <input type="number" name="tonKho" placeholder="Số lượng tồn kho" required><br>
       <div class="modal-buttons">
       <button type="submit">Thêm</button>
       <button type="button" onclick="closeModal()">Hủy</button>
@@ -184,6 +186,7 @@ ob_start();
       </select><br>
       <input type="number" name="gia" id="editGia" required><br>
       <input type="file" name="hinhanh"><br>
+      <input type="number" name="tonKho" id="editTonKho" required><br>
       <div class="modal-buttons">
       <button type="submit">Cập nhật</button>
       <button type="button" onclick="closeModal()">Hủy</button>
@@ -213,8 +216,10 @@ function openEditModal(data) {
   document.getElementById("editTen").value = data.tenSanPham;
   document.getElementById("editLoai").value = data.loaiSanPham;
   document.getElementById("editGia").value = data.gia;
+  document.getElementById("editTonKho").value = data.tonKho;
   document.getElementById("editProductModal").style.display = "flex";
 }
+
 
 
 function confirmDelete(id) {

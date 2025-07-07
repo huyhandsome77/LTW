@@ -33,7 +33,6 @@
 /* Form chung */
 form {
   margin-top: 20px;
-  padding: 20px;
   background-color: #f8f8ff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -73,6 +72,7 @@ form button[type="submit"]:hover {
 /* Bảng sản phẩm */
 #bangSanPham {
   width: 100%;
+  padding: 20px;
   border-collapse: collapse;
   margin-top: 10px;
 }

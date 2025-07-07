@@ -287,5 +287,17 @@
         setInterval(nextSlide, 3000);
       });
     </script>
+    <?php if (isset($_SESSION['thongbao'])): ?>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              icon: '<?= $_SESSION['thongbao']['type'] ?>',
+              title: '<?= $_SESSION['thongbao']['title'] ?>',
+              text: '<?= $_SESSION['thongbao']['message'] ?>',
+              confirmButtonText: 'OK'
+            });
+          </script>
+          <?php unset($_SESSION['thongbao']); ?>
+        <?php endif; ?>
   </body>
 </html>

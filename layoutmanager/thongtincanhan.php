@@ -1,5 +1,14 @@
 <?php
 session_start();
+if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role'], ['Admin', 'Manager'])) {
+  $_SESSION['thongbao'] = [
+      'type' => 'error',
+      'title' => 'Truy cập bị từ chối',
+      'message' => 'Bạn không có quyền truy cập vào trang này.'
+  ];
+  header("Location: ../login.php");
+  exit();
+}
 ?>
 <html lang="en">
   <head>

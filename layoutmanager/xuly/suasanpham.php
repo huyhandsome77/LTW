@@ -1,11 +1,12 @@
 <?php
-session_start(); // ⚠️ Bắt buộc
+session_start(); 
 include('../../connect.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['id'] ?? 0);
     $ten = trim($_POST['tenSanPham'] ?? '');
     $gia = floatval($_POST['giaTien'] ?? 0);
+    $tonKho = intval($_POST['tonKho'] ?? 0);
     $loaiSanPham = $_POST['loaiSanPham'] ?? '';
     $newImagePath = null;
 
@@ -60,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Cập nhật DB
     if ($newImagePath !== null) {
-        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=?, hinhanh=?, loaiSanPham=? WHERE idSanPham=?");
-        $stmt->bind_param("sdssi", $ten, $gia, $newImagePath, $loaiSanPham, $id);
+        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=?,tonKho=?, hinhanh=?, loaiSanPham=? WHERE idSanPham=?");
+        $stmt->bind_param("sdisi", $ten, $gia,$tonKho, $newImagePath, $loaiSanPham, $id);
     } else {
-        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=?, loaiSanPham=? WHERE idSanPham=?");
-        $stmt->bind_param("sdsi", $ten, $gia, $loaiSanPham, $id);
+        $stmt = $link->prepare("UPDATE sanpham SET tenSanPham=?, gia=?,tonKho=?, loaiSanPham=? WHERE idSanPham=?");
+        $stmt->bind_param("sdisi", $ten, $gia,$tonKho, $loaiSanPham, $id);
     }
 
     if ($stmt->execute()) {

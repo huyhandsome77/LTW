@@ -1,6 +1,14 @@
 <?php
 session_start();
-include("../connect.php");
+if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role'], ['Admin', 'Manager'])) {
+  $_SESSION['thongbao'] = [
+      'type' => 'error',
+      'title' => 'Truy cập bị từ chối',
+      'message' => 'Bạn không có quyền truy cập vào trang này.'
+  ];
+  header("Location: ../login.php");
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -18,7 +26,9 @@ include("../connect.php");
 </head>
 
 <body>
-<?php include("include/left-menu.php"); ?>
+<?php include("include/left-menu.php"); 
+include("../connect.php");
+?>
 
 <div id="main">
   <?php include("include/navbar.php"); ?>

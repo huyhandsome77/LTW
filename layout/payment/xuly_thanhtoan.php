@@ -8,7 +8,7 @@ if (!isset($_POST['method']) || empty($_SESSION['cart']) || !isset($_SESSION['us
 $method = $_POST['method'];
 $_SESSION['tongtien_momo'] = 0;
 foreach ($_SESSION['cart'] as $item) {
-    $_SESSION['tongtien_momo'] += $item['gia'] * $item['soluong'];
+    $_SESSION['tongtien_momo'] += $item['gia'] * $item['soluong']- $_SESSION['discount_applied']['value'];
 }
 if ($method == 'cod') {
     header("Location: cod_thanhtoan.php"); // xử lý đơn hàng COD

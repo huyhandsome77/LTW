@@ -134,7 +134,7 @@ $donHang = mysqli_fetch_assoc($result_check);
 
     <p class="total">Tổng tiền đơn hàng: <span style="color: #e74c3c;"><?= number_format($tongTien, 0, ',', '.') ?>đ</span></p>
 
-    <a class="back-btn" href="lichsudathang.php">← Quay lại lịch sử đặt hàng</a>
+    <a class="back-btn" href="lichsudathang.php">← Quay lại</a>
   </div>
   <?php include("include/footer.php"); ?>
 </div>

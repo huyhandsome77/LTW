@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -51,8 +48,8 @@ ob_start();
                 echo "<td>" . htmlspecialchars($row['noiDung']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['status']) . "</td>";
                 echo "<td>";
-                if ($row['status'] === 'Chưa Xử Lí') {
-                  echo "<form method='post' action='xuly/xulylienhe.php'>
+                if ($row['status'] === 'Chưa xử lí') {
+                  echo "<form method='post' action='Controller/xulylienhe.php'>
                           <input type='hidden' name='id' value='{$row['idLienHe']}'>
                           <button type='submit'>Đánh dấu đã xử lý</button>
                         </form>";

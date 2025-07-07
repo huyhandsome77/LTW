@@ -1,6 +1,14 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role'], ['Admin', 'Manager'])) {
+  $_SESSION['thongbao'] = [
+      'type' => 'error',
+      'title' => 'Truy cập bị từ chối',
+      'message' => 'Bạn không có quyền truy cập vào trang này.'
+  ];
+  header("Location: ../login.php");
+  exit();
+}
 ?>
 <html lang="en">
 <head>
@@ -66,6 +74,10 @@ include("include/left-menu.php");
       <label for="giaTien">Giá tiền (VND):</label>
       <input type="number" id="giaTien" name="giaTien" required />
 
+      <label for="soLuongTonKho">Số lượng tồn kho:</label>
+      <input type="number" id="soLuongTonKho" name="tonKho" required min="0" />
+
+
       <label for="loaiSanPham">Loại sản phẩm:</label>
       <select id="loaiSanPham" name="loaiSanPham" required>
         <option value="">-- Chọn loại --</option>
@@ -89,6 +101,7 @@ include("include/left-menu.php");
           <th>STT</th>
           <th>Tên sản phẩm</th>
           <th>Giá</th>
+          <th>Tồn kho</th>
           <th>Loại</th>
           <th>Hình ảnh</th>
           <th>Hành động</th>
@@ -104,6 +117,7 @@ include("include/left-menu.php");
           echo "<td>" . $stt++ . "</td>";
           echo "<td>" . htmlspecialchars($row['tenSanPham']) . "</td>";
           echo "<td>" . number_format($row['gia']) . "₫</td>";
+          echo "<td>" . number_format($row["tonKho"]) ."</td>";
           echo "<td>" . htmlspecialchars($row['loaiSanPham']) . "</td>";
           echo "<td><img src='../" . $row['hinhanh'] . "' width='60' /></td>";
           echo "<td>
@@ -113,6 +127,7 @@ include("include/left-menu.php");
                       '{$row['idSanPham']}', 
                       '" . htmlspecialchars($row['tenSanPham'], ENT_QUOTES) . "', 
                       '{$row['gia']}', 
+                      '{$row['tonKho']}',
                       '{$row['hinhanh']}', 
                       '" . htmlspecialchars($row['loaiSanPham'], ENT_QUOTES) . "'
                     )\">
@@ -142,6 +157,9 @@ include("include/left-menu.php");
 
           <label for="editGiaTien">Giá tiền (VND):</label>
           <input type="number" name="giaTien" id="editGiaTien" required />
+
+          <label for="editTonKho">Số lượng tồn kho:</label>
+          <input type="number" name="tonKho" id="editTonKho" required />
 
           <label for="editLoaiSanPham">Loại sản phẩm:</label>
           <select name="loaiSanPham" id="editLoaiSanPham" required>
@@ -186,10 +204,11 @@ include("include/left-menu.php");
     document.getElementById("tenFileAnh").innerText = fileName;
   });
 
-  function openEditPopup(id, ten, gia, anh, loai) {
+  function openEditPopup(id, ten, gia,tonKho , anh, loai) {
     document.getElementById("editProductId").value = id;
     document.getElementById("editTenSanPham").value = ten;
     document.getElementById("editGiaTien").value = gia;
+    document.getElementById("editTonKho").value = tonKho;
     document.getElementById("editAnhPreview").src = "../" + anh;
     document.getElementById("editLoaiSanPham").value = loai;
     document.getElementById("popupForm").style.display = "flex";

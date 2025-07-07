@@ -5,6 +5,7 @@ include('../../connect.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tenSanPham = trim($_POST['tenSanPham'] ?? '');
     $giaTien = floatval($_POST['giaTien'] ?? 0);
+    $tonKho = intval($_POST['tonKho'] ??0);
     $loaiSanPham = $_POST['loaiSanPham'] ?? '';
     $hinhAnhPath = '';
 
@@ -52,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Thêm vào CSDL
-    $stmt = $link->prepare("INSERT INTO sanpham (tenSanPham, gia, hinhanh, loaiSanPham) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sdss", $tenSanPham, $giaTien, $hinhAnhPath, $loaiSanPham);
+    $stmt = $link->prepare("INSERT INTO sanpham (tenSanPham, gia,tonKho, hinhanh, loaiSanPham) VALUES (?, ?,?, ?, ?)");
+    $stmt->bind_param("sdsss", $tenSanPham, $giaTien,$tonKho, $hinhAnhPath, $loaiSanPham);
 
     if ($stmt->execute()) {
         $_SESSION['thongbao'] = [

@@ -14,12 +14,12 @@ $secretKey = "EAZqkJl5AHgiL2pl7bLhkeL2j8HJx92i";
 // Tính tổng tiền
 $orderInfo = "Thanh toán đơn hàng qua MoMo";
 $amount = 0;
-foreach ($_SESSION['cart'] as $item) {
-    $amount += $item['gia'] * $item['soluong'];
-}
+
+$amount += $_SESSION['tongtien_momo'];
+
 $orderId = time() . "";
-$redirectUrl = "http://localhost/WebShop/layout/payment/momo_return.php";
-$ipnUrl = "http://localhost/WebShop/layout/payment/momo_return.php";
+$redirectUrl = "http://localhost/LTW/layout/payment/momo_return.php";
+$ipnUrl = "http://localhost/LTW/layout/payment/momo_return.php";
 $requestId = time() . "";
 $requestType = "captureWallet";
 $extraData = ""; // Có thể truyền userId
