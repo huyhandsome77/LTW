@@ -1,0 +1,10 @@
+{
+    "name": "admin/web-shop",
+    "description": "WebShop PHP tích h?p thanh toán",
+    "type": "project",
+    "require": {
+        "mservice/payment": "dev-master"
+    },
+    "license": "MIT",
+    "minimum-stability": "dev"
+}
